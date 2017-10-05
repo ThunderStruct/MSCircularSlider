@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		D9254D231F852E71006F7A81 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D221F852E71006F7A81 /* ColorPickerView.swift */; };
+		D9254D731F868CC8006F7A81 /* MSCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D241F859AF8006F7A81 /* MSCircularSlider.swift */; };
+		D9254D741F868CCB006F7A81 /* MSCircularSlider+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D261F859AF8006F7A81 /* MSCircularSlider+IB.swift */; };
+		D9254D751F868CCB006F7A81 /* MSCircularSliderHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D251F859AF8006F7A81 /* MSCircularSliderHandle.swift */; };
+		D9254D761F868CCB006F7A81 /* MSDoubleHandleCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D291F859AF8006F7A81 /* MSDoubleHandleCircularSlider.swift */; };
+		D9254D771F868CCB006F7A81 /* MSDoubleHandleCircularSlider+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D281F859AF8006F7A81 /* MSDoubleHandleCircularSlider+IB.swift */; };
+		D9254D781F868CCB006F7A81 /* MSGradientCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D2A1F859AF8006F7A81 /* MSGradientCircularSlider.swift */; };
+		D9254D791F868CCB006F7A81 /* MSGradientCircularSlider+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9254D2B1F859AF8006F7A81 /* MSGradientCircularSlider+IB.swift */; };
 		D935DBFE1F81AE5300E6B6EE /* SliderPropertiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DBFD1F81AE5300E6B6EE /* SliderPropertiesVC.swift */; };
 		D935DC021F81AE7A00E6B6EE /* MarkersLabelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DC011F81AE7A00E6B6EE /* MarkersLabelsVC.swift */; };
 		D935DC041F81AE8500E6B6EE /* DoubleHandleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DC031F81AE8500E6B6EE /* DoubleHandleVC.swift */; };
@@ -24,7 +31,6 @@
 		D9254D241F859AF8006F7A81 /* MSCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSCircularSlider.swift; path = MSCircularSlider/MSCircularSlider.swift; sourceTree = "<group>"; };
 		D9254D251F859AF8006F7A81 /* MSCircularSliderHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSCircularSliderHandle.swift; path = MSCircularSlider/MSCircularSliderHandle.swift; sourceTree = "<group>"; };
 		D9254D261F859AF8006F7A81 /* MSCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MSCircularSlider+IB.swift"; path = "MSCircularSlider/MSCircularSlider+IB.swift"; sourceTree = "<group>"; };
-		D9254D271F859AF8006F7A81 /* MSCircularTrig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSCircularTrig.swift; path = MSCircularSlider/MSCircularTrig.swift; sourceTree = "<group>"; };
 		D9254D281F859AF8006F7A81 /* MSDoubleHandleCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MSDoubleHandleCircularSlider+IB.swift"; path = "MSCircularSlider/MSDoubleHandleCircularSlider+IB.swift"; sourceTree = "<group>"; };
 		D9254D291F859AF8006F7A81 /* MSDoubleHandleCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSDoubleHandleCircularSlider.swift; path = MSCircularSlider/MSDoubleHandleCircularSlider.swift; sourceTree = "<group>"; };
 		D9254D2A1F859AF8006F7A81 /* MSGradientCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSGradientCircularSlider.swift; path = MSCircularSlider/MSGradientCircularSlider.swift; sourceTree = "<group>"; };
@@ -94,7 +100,6 @@
 				D9254D241F859AF8006F7A81 /* MSCircularSlider.swift */,
 				D9254D261F859AF8006F7A81 /* MSCircularSlider+IB.swift */,
 				D9254D251F859AF8006F7A81 /* MSCircularSliderHandle.swift */,
-				D9254D271F859AF8006F7A81 /* MSCircularTrig.swift */,
 				D9254D291F859AF8006F7A81 /* MSDoubleHandleCircularSlider.swift */,
 				D9254D281F859AF8006F7A81 /* MSDoubleHandleCircularSlider+IB.swift */,
 				D9254D2A1F859AF8006F7A81 /* MSGradientCircularSlider.swift */,
@@ -178,11 +183,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D935DC021F81AE7A00E6B6EE /* MarkersLabelsVC.swift in Sources */,
+				D9254D781F868CCB006F7A81 /* MSGradientCircularSlider.swift in Sources */,
+				D9254D751F868CCB006F7A81 /* MSCircularSliderHandle.swift in Sources */,
+				D9254D731F868CC8006F7A81 /* MSCircularSlider.swift in Sources */,
 				D96C348A1F813B050041B50C /* ExamplesMenu.swift in Sources */,
+				D9254D741F868CCB006F7A81 /* MSCircularSlider+IB.swift in Sources */,
 				D935DC061F81AE8E00E6B6EE /* GradientColorsVC.swift in Sources */,
 				D935DC041F81AE8500E6B6EE /* DoubleHandleVC.swift in Sources */,
+				D9254D791F868CCB006F7A81 /* MSGradientCircularSlider+IB.swift in Sources */,
 				D9254D231F852E71006F7A81 /* ColorPickerView.swift in Sources */,
 				D935DBFE1F81AE5300E6B6EE /* SliderPropertiesVC.swift in Sources */,
+				D9254D771F868CCB006F7A81 /* MSDoubleHandleCircularSlider+IB.swift in Sources */,
+				D9254D761F868CCB006F7A81 /* MSDoubleHandleCircularSlider.swift in Sources */,
 				D96C34881F813B050041B50C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

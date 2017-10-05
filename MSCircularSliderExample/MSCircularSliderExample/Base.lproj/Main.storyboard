@@ -121,7 +121,7 @@ Rotation Angle: Computed
                             <constraint firstItem="QFw-Ax-sTv" firstAttribute="leading" secondItem="fP9-Q5-Lxt" secondAttribute="trailing" constant="15" id="Afy-Qy-1mS"/>
                             <constraint firstItem="QFw-Ax-sTv" firstAttribute="centerY" secondItem="fP9-Q5-Lxt" secondAttribute="centerY" id="C2M-Cz-ols"/>
                             <constraint firstItem="O05-rN-geP" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ppS-VC-PWU" secondAttribute="bottom" constant="10" id="CQm-pS-4tB"/>
-                            <constraint firstItem="Q93-Gh-R8A" firstAttribute="top" secondItem="O05-rN-geP" secondAttribute="top" multiplier="1.5" constant="8" symbolic="YES" id="Cau-eA-yMv"/>
+                            <constraint firstItem="Q93-Gh-R8A" firstAttribute="top" secondItem="O05-rN-geP" secondAttribute="top" multiplier="1.5" symbolic="YES" id="Cau-eA-yMv"/>
                             <constraint firstItem="ppS-VC-PWU" firstAttribute="width" secondItem="1wO-BF-yX3" secondAttribute="width" multiplier="0.7" id="Cjg-i5-dnr"/>
                             <constraint firstItem="ZQ2-JE-xfr" firstAttribute="height" secondItem="9qE-oc-Y75" secondAttribute="height" id="DHz-CR-m7D"/>
                             <constraint firstItem="QFw-Ax-sTv" firstAttribute="trailing" secondItem="9qE-oc-Y75" secondAttribute="trailing" id="DII-BM-Kpd"/>
