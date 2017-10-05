@@ -5,15 +5,6 @@
 //  Copyright © 2017 Mohamed Shahawy. All rights reserved.
 //
 
-/*
- ADDED LIST
- SemiTransparentBigCircle HandleType
- DoubleCircle HandleType
- Bigger BigCircle HandleWidth
- Markers with custom color and count
- 
- */
-
 import UIKit
 import QuartzCore
 
