@@ -2,5 +2,5 @@
 # platform :ios, '9.0'
 
 target 'MSCircularSlider' do
-    pod 'MSCi
+    
 end
