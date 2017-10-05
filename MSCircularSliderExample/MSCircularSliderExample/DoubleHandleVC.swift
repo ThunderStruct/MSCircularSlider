@@ -75,13 +75,13 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
     // Support Methods
     func handleTypeStrFrom(_ type: MSCircularSliderHandleType) -> String {
         switch type {
-        case .SmallCircle:
+        case .smallCircle:
             return "Small Circle"
-        case .MediumCircle:
+        case .mediumCircle:
             return "Medium Circle"
-        case .LargeCircle:
+        case .largeCircle:
             return "Large Circle"
-        case .DoubleCircle:
+        case .doubleCircle:
             return "Double Circle"
         }
     }

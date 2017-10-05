@@ -152,7 +152,7 @@ class MSCircularSlider: UIControl {
         }
     }
     
-    var handleType: MSCircularSliderHandleType = .LargeCircle {
+    var handleType: MSCircularSliderHandleType = .largeCircle {
         didSet {
             setNeedsUpdateConstraints()
             setNeedsDisplay()
@@ -268,11 +268,11 @@ class MSCircularSlider: UIControl {
     
     internal var handleDiameter: CGFloat {
         switch handleType {
-        case .SmallCircle:
+        case .smallCircle:
             return CGFloat(Double(lineWidth) / 2.0)
-        case .MediumCircle:
+        case .mediumCircle:
             return CGFloat(lineWidth)
-        case .LargeCircle, .DoubleCircle:
+        case .largeCircle, .doubleCircle:
             return CGFloat(lineWidth + handleEnlargementPoints)
             
         }
@@ -426,7 +426,7 @@ class MSCircularSlider: UIControl {
         let calculatedHandleColor = handle.isHighlightable && handle.isPressed ? handleColor.withAlphaComponent(0.9) : handleColor
         
         // Handle color calculation
-        if handleType == .DoubleCircle {
+        if handleType == .doubleCircle {
             calculatedHandleColor.set()
             drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.25 * handleDiameter)
             

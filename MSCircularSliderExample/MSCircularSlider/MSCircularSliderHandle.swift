@@ -8,10 +8,10 @@
 import UIKit
 
 enum MSCircularSliderHandleType: Int, RawRepresentable {
-    case SmallCircle = 0,
-    MediumCircle,
-    LargeCircle,
-    DoubleCircle    // Semitransparent big circle with a nested small circle
+    case smallCircle = 0,
+    mediumCircle,
+    largeCircle,
+    doubleCircle    // Semitransparent large circle with a nested small circle
 }
 
 @IBDesignable
