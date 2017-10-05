@@ -5,7 +5,7 @@ A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
 ------------------------
 <p align="center">
-  <img src="https://i.imgur.com/eGAjcwY.gif">
+  <img src="https://i.imgur.com/PClBNfS.gif">
 </p>
 
 ## Getting Started
