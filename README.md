@@ -70,7 +70,7 @@ view.addSubview(slider!)
 ### Members and Methods
 #### MSCircularSlider
   - `delegate`: takes a class conforming to MSCircularSliderDelegate and handles delegation - default nil
-  note: please check the _Protocols_ segment below for more info about the abstract delegation model used
+    - note: please check the _Protocols_ segment below for more info about the abstract delegation model used
   - `minimumValue`: the value the slider takes at angle 0° - default 0.0
   - `maximumValue`: the value the slider takes at maximumAngle - default 100.0
   - `currentValue`: the value the slider has at the current angle - default 0.0
@@ -79,26 +79,26 @@ view.addSubview(slider!)
   - `filledColor`: the color shown for the part "filled" by the handle - default .darkGrey
   - `unfilledColor`: the color shown for the "unfilled" part of the circle - default .lightGrey
   - `rotationAngle`: the rotation transformation angle of the entire slider view - default calculated so that the _gap_ is facing downwards
-  note: the slider adds an inverted rotational transformation to all of its subviews to cancel any applied rotation
+    - note: the slider adds an inverted rotational transformation to all of its subviews to cancel any applied rotation
   - `handleType`: indicates the type of the handle - default .largeCircle
   - `handleColor`: the handle's color - default .darkGrey
   - `handleEnlargementPoints`: the number of points the handle is larger than lineWidth - default 10
-  note: this property only applies to handles of types .largeCircle or .doubleCircle
+    - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `handleHighlightable`: indicates whether the handle should _highlight_ (becomes semitransparent) while being pressed - default true
   - `labels`: the string array that contains all labels to be displayed in an evenly-distributed manner - default [ ]
-  note: all changes to this array will not be applied instantly unless they go through the assignment operator (=). To perform changes, use the provided methods below
+    - note: all changes to this array will not be applied instantly unless they go through the assignment operator (=). To perform changes, use the provided methods below
   - `labelColor`: the color applied to the displayed labels - default .black
   - `snapToLabels`: indicates whether the handle should _snap_ to the nearest label upon handle-release - default false
   - `labelFont`: the font applied to the displayed labels - default .systemFont(ofSize: 12)
   - `labelOffset`: the number of point labels are pushed off away from the slider's center - default 0.0
-  note: a negative number can be used to draw the labels inwards towards the center
+    - note: a negative number can be used to draw the labels inwards towards the center
   - `markerCount`: indicates the number of markers to be displayed in an evenly-distributed manner - default 0
   - `markerColor`: the color applied to the displayed markers - default .darkGrey
   - `markerPath`: an optional UIBezierPath to draw custom-shaped markers instead of the standard ellipse markers - default nil
   - `markerImage`: an optional UIImage to be drawn instead of the standard ellipse markers - default nil
-  note: markerPath takes precedence over markerImage, so if both members are set, the images will not be drawn
+    - note: markerPath takes precedence over markerImage, so if both members are set, the images will not be drawn
   - `snapToMarkers`: indicates whether the handle should _snap_ to the nearest marker upon handle-release - default false
-  note: if both snapToMarkers and snapToLabels are true, the handle will be snapped to the nearest marker
+    - note: if both snapToMarkers and snapToLabels are true, the handle will be snapped to the nearest marker
   - `addLabel(_ string: String)`: adds a string to the labels array and triggers required drawing methods
   - `changeLabel(at index: Int, string: String)`: replaces the label's string at the given index with the provided string
   - `removeLabel(at index: Int)`: removes the string from the labels array at the given index
@@ -107,7 +107,7 @@ view.addSubview(slider!)
 Inherits from MSCircularSlider with the following differences
 
   - `delegate`: takes a class conforming to MSDoubleHandleCircularSliderDelegate and handles delegation - default nil
-  note: please check the _Protocols_ segment below for more info about the abstract delegation model used
+    - note: please check the _Protocols_ segment below for more info about the abstract delegation model used
   - `minimumHandlesDistance`: indicates the minimum arc length between the two handles - default 10.0
   - `secondCurrentValue`: the current value of the second handle - default calculated from 60° angle
   - `snapToLabels`: from the super class - overridden and made unavailable
@@ -117,7 +117,7 @@ Inherits from MSCircularSlider with the following differences
 Inherits from MSCircularSlider with the following differences
 
   - `gradientColors`: the colors array upon which the gradient is calculated (as ordered in the array) - default [.lightGray, .blue, .darkGray]
-note: all changes to this array will not be applied instantly unless they go through the assignment operator (=). To perform changes, use the provided methods below
+    - note: all changes to this array will not be applied instantly unless they go through the assignment operator (=). To perform changes, use the provided methods below
   - `addColor(_ color: UIColor)`: adds a color to the gradientColors array and triggers required drawing methods
   - `changeColor(at index: Int, newColor: UIColor)`: replaces the color at the given index with the provided newColor
   - `removeColor(at index: Int)`: removes the color from the gradientColors array at the given index
