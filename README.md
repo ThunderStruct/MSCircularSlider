@@ -4,7 +4,9 @@
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
 ------------------------
-[Demo Gif](https://i.imgur.com/HaP6DiT.gifv)
+<p align="center">
+  <img src="https://i.imgur.com/HaP6DiT.gif">
+</p>
 
 ## Getting Started
 MSCircularSlider provides a fluid and straightforward interface to a multipurpose slider UIControl. The entire library is written in Swift 4 along with the accompanying example project
@@ -45,7 +47,9 @@ Or use one of the shorthand methods below
 Most members are `IBInspectable`, providing multiple ways of complete initialization; through the `Interface Builder` or programmatically
 ##### Interface Builder Initialization
 
-[IB Properties](https://i.imgur.com/F4ZrBze.png)
+<p>
+  <img src="https://i.imgur.com/F4ZrBze.png">
+</p>
 
 ##### Programmatic Initialization
 The following code instantiates and initializes the slider to make it identical to the one in the IB sample above
@@ -63,10 +67,10 @@ slider.labels = ["1", "2", "3", "4", "5"]
 view.addSubview(slider!)
 ```
 
-#### Members and Methods
-##### MSCircularSlider
+### Members and Methods
+#### MSCircularSlider
   - `delegate`: takes a class conforming to MSCircularSliderDelegate and handles delegation - default nil
-  note: please check the _Protocols_ documentation below for more info about the abstract delegation model used
+  note: please check the _Protocols_ segment below for more info about the abstract delegation model used
   - `minimumValue`: the value the slider takes at angle 0° - default 0.0
   - `maximumValue`: the value the slider takes at maximumAngle - default 100.0
   - `currentValue`: the value the slider has at the current angle - default 0.0
@@ -99,17 +103,17 @@ view.addSubview(slider!)
   - `changeLabel(at index: Int, string: String)`: replaces the label's string at the given index with the provided string
   - `removeLabel(at index: Int)`: removes the string from the labels array at the given index
 
-##### MSDoubleHandleCircularSlider
+#### MSDoubleHandleCircularSlider
 Inherits from MSCircularSlider with the following differences
 
   - `delegate`: takes a class conforming to MSDoubleHandleCircularSliderDelegate and handles delegation - default nil
-  note: please check the _Protocols_ documentation below for more info about the abstract delegation model used
+  note: please check the _Protocols_ segment below for more info about the abstract delegation model used
   - `minimumHandlesDistance`: indicates the minimum arc length between the two handles - default 10.0
   - `secondCurrentValue`: the current value of the second handle - default calculated from 60° angle
   - `snapToLabels`: from the super class - overridden and made unavailable
   - `snapToMarkers`: from the super class - overriden and made unavailable
 
-##### MSGradientCircularSlider
+#### MSGradientCircularSlider
 Inherits from MSCircularSlider with the following differences
 
   - `gradientColors`: the colors array upon which the gradient is calculated (as ordered in the array) - default [.lightGray, .blue, .darkGray]
@@ -118,13 +122,13 @@ note: all changes to this array will not be applied instantly unless they go thr
   - `changeColor(at index: Int, newColor: UIColor)`: replaces the color at the given index with the provided newColor
   - `removeColor(at index: Int)`: removes the color from the gradientColors array at the given index
 
-#### Protocols  
+### Protocols  
 There are three protocols used in the MSCircularSlider library
 
-##### MSCircularSliderProtocol
+#### MSCircularSliderProtocol
 An internal protocol that acts only as an abstract super class with no defined methods. The main and only `delegate` member exposed in all classes is of type MSCircularSliderProtocol and gets cast to one of the other two protocols appropriately
 
-##### MSCircularSliderDelegate
+#### MSCircularSliderDelegate
 Inherits from MSCircularSliderProtocol and contains all methods (documented below) used by MSCircularSlider and MSGradientCircularSlider
 
   - `circularSlider(_ slider: MSCircularSlider, valueChangedTo value: Double, fromUser: Bool)`: called upon currentValue change and provides a _fromUser_ Bool that indicates whether the value was changed by the user (by scrolling the handle) or through other means (programmatically or so - `currentValue = 20`)
@@ -133,7 +137,7 @@ Inherits from MSCircularSliderProtocol and contains all methods (documented belo
   
   - `circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double)`: indicates that the slider's handle was released
 
-##### MSDoubleHandleCircularSliderDelegate
+#### MSDoubleHandleCircularSliderDelegate
 Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircularSlider
 
   - `circularSlider(_ slider: MSCircularSlider, valueChangedTo firstValue: Double, secondValue: Double, isFirstHandle: Bool?, fromUser: Bool) `: called upon any of the two current values changes and provides an isFirstHandle Bool indicating whether the change came from the first or second handle
