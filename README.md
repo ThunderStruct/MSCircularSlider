@@ -148,10 +148,10 @@ Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircula
 
 ## Todos
 
- - Eliminate mutual-exlusion between `snapToLabels` and `snapToMarkers`
- - Add snapping feature for `MSDoubleHandleCircularSlider`
- - Add independent members for the second handle in `MSDoubleHandleCircularSlider` to customize each handle individually
- - Add `MSCircularSliderMaterial` enum that specifies different _finishes_ for the slider, including
+ - [ ] Eliminate mutual-exlusion between `snapToLabels` and `snapToMarkers`
+ - [ ] Add snapping feature for `MSDoubleHandleCircularSlider`
+ - [ ] Add independent members for the second handle in `MSDoubleHandleCircularSlider` to customize each handle individually
+ - [ ] Add `MSCircularSliderMaterial` enum that specifies different _finishes_ for the slider, including
    - Glossy
    - Matte
    - Pearlescent
