@@ -48,7 +48,7 @@ Most members are `IBInspectable`, providing multiple ways of complete initializa
 ##### Interface Builder Initialization
 
 <p>
-  <img src="https://i.imgur.com/F4ZrBze.png">
+  <img src="https://i.imgur.com/iLp7ifC.png">
 </p>
 
 ##### Programmatic Initialization
