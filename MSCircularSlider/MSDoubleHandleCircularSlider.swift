@@ -37,7 +37,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     
-    // SECOND HANDLE'S PROPERTIES
+    // DOUBLE HANDLE SLIDER PROPERTIES
     public var minimumHandlesDistance: CGFloat = 10 {    // distance between handles
         didSet {
             let maxValue = CGFloat.pi * calculatedRadius * maximumAngle / 360.0
@@ -53,12 +53,8 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
-    override public var handleHighlightable: Bool {
-        didSet {
-            secondHandle.isHighlightable = handleHighlightable
-            setNeedsDisplay()
-        }
-    }
+    // SECOND HANDLE'S PROPERTIES
+    let secondHandle = MSCircularSliderHandle()
     
     public var secondCurrentValue: Double {      // second handle's value
         set {
@@ -78,12 +74,49 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     
     public var secondAngle: CGFloat = 60 {
         didSet {
-            //assert(secondAngle >= 0 && secondAngle <= 360, "secondAngle \(secondAngle) must be between 0 and 360 inclusive")
             secondAngle = max(0.0, secondAngle).truncatingRemainder(dividingBy: maximumAngle + 1)
         }
     }
     
-    let secondHandle = MSCircularSliderHandle()
+    public var secondHandleColor: UIColor = .darkGray {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleType: MSCircularSliderHandleType = .largeCircle {
+        didSet {
+            setNeedsUpdateConstraints()
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleEnlargementPoints: Int = 10 {
+        didSet {
+            setNeedsUpdateConstraints()
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleHighlightable: Bool = true {
+        didSet {
+            secondHandle.isHighlightable = secondHandleHighlightable
+            setNeedsDisplay()
+        }
+    }
+    
+    // CALCULATED MEMBERS
+    internal var secondHandleDiameter: CGFloat {
+        switch handleType {
+        case .smallCircle:
+            return CGFloat(Double(lineWidth) / 2.0)
+        case .mediumCircle:
+            return CGFloat(lineWidth)
+        case .largeCircle, .doubleCircle:
+            return CGFloat(lineWidth + secondHandleEnlargementPoints)
+            
+        }
+    }
     
     // OVERRIDDEN MEMBERS
     override public var maximumAngle: CGFloat {
@@ -123,7 +156,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         
         // Draw the second handle
         let handleCenter = super.pointOnCircleAt(angle: secondAngle)
-        secondHandle.frame = self.drawHandle(ctx: ctx!, atPoint: handleCenter, handle: secondHandle)
+        secondHandle.frame = self.drawSecondHandle(ctx: ctx!, atPoint: handleCenter, handle: secondHandle)
     }
     
     override func drawLine(ctx: CGContext) {
@@ -203,12 +236,35 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     // DRAWING METHODS
     //================================================================================
     
-    override func drawHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
+    internal func drawSecondHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
         // Comment out the call to the super class and customize the second handle here
         // Must set calculatedColor for secondHandle in this case to set the handle's "highlight" if needed
         // TODO: add separate secondHandleDiameter, secondHandleColor, and secondHandleType properties
         
-        return super.drawHandle(ctx: ctx, atPoint: handleCenter, handle: handle)
+        ctx.saveGState()
+        var frame: CGRect!
+        
+        // Highlight == 0.9 alpha
+        let calculatedHandleColor = handle.isHighlightable && handle.isPressed ? secondHandleColor.withAlphaComponent(0.9) : secondHandleColor
+        
+        // Handle color calculation
+        if secondHandleType == .doubleCircle {
+            calculatedHandleColor.set()
+            drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.25 * secondHandleDiameter)
+            
+            calculatedHandleColor.withAlphaComponent(0.7).set()
+            
+            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
+        }
+        else {
+            calculatedHandleColor.set()
+            
+            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
+        }
+        
+        
+        ctx.saveGState()
+        return frame
     }
     
     //================================================================================

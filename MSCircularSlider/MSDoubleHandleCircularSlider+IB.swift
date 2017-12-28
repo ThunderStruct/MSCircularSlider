@@ -11,7 +11,7 @@ import UIKit
 extension MSDoubleHandleCircularSlider {
     
     //================================================================================
-    // SECOND HANDLE PROPERTIES
+    // DOUBLE HANDLE SLIDER PROPERTIES
     //================================================================================
     
     @IBInspectable public var _minimumHandlesDistance: CGFloat {
@@ -31,4 +31,48 @@ extension MSDoubleHandleCircularSlider {
             secondCurrentValue = newValue
         }
     }
+    
+    //================================================================================
+    // SECOND HANDLE PROPERTIES
+    //================================================================================
+    
+    @IBInspectable public var _secondHandleType: Int {   // Takes values from 0 to 3 only
+        get {
+            return secondHandleType.rawValue
+        }
+        set {
+            if let temp = MSCircularSliderHandleType(rawValue: newValue) {
+                secondHandleType = temp
+            }
+        }
+    }
+    
+    @IBInspectable public var _secondHandleColor: UIColor {
+        get {
+            return secondHandleColor
+        }
+        set {
+            secondHandleColor = newValue
+        }
+    }
+    
+    @IBInspectable public var _secondHandleEnlargementPoints: Int {
+        get {
+            return secondHandleEnlargementPoints
+        }
+        set {
+            secondHandleEnlargementPoints = newValue
+        }
+    }
+    
+    @IBInspectable public var _secondHandleHighlightable: Bool {
+        get {
+            return secondHandleHighlightable
+        }
+        set {
+            secondHandleHighlightable = newValue
+        }
+    }
+    
+    
 }

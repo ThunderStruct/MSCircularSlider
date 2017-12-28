@@ -502,7 +502,7 @@ public class MSCircularSlider: UIControl {
     }
     
     @discardableResult
-    private func drawFilledCircle(ctx: CGContext, center: CGPoint, radius: CGFloat) -> CGRect {
+    internal func drawFilledCircle(ctx: CGContext, center: CGPoint, radius: CGFloat) -> CGRect {
         let frame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
         ctx.fillEllipse(in: frame)
         return frame
@@ -669,10 +669,11 @@ public class MSCircularSlider: UIControl {
             fixedAngle = maximumAngle - angle
         }
         
+        
+        var minDist = maximumAngle
+        var newAngle = 0.0 as CGFloat
+        
         if snapToLabels {
-            var minDist = maximumAngle
-            var newAngle = 0.0 as CGFloat
-            
             for i in 0 ..< labels.count + 1 {
                 let percentageAlongCircle = Double(i) / Double(labels.count - (fullCircle ? 0 : 1))
                 let degreesToLbl = CGFloat(percentageAlongCircle) * maximumAngle
@@ -687,9 +688,6 @@ public class MSCircularSlider: UIControl {
         }
         
         if snapToMarkers {
-            var minDist = maximumAngle
-            var newAngle = 0.0 as CGFloat
-            
             for i in 0 ..< markerCount + 1 {
                 let percentageAlongCircle = Double(i) / Double(markerCount - (fullCircle ? 0 : 1))
                 let degreesToMarker = CGFloat(percentageAlongCircle) * maximumAngle
