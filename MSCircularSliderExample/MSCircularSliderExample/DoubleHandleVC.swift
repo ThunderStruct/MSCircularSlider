@@ -15,9 +15,8 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
     @IBOutlet weak var valuesLbl: UILabel!
     @IBOutlet weak var handleTypeLbl: UILabel!
     @IBOutlet weak var descriptionLbl: UILabel!
-    @IBOutlet weak var unfilledColorBtn: UIButton!
-    @IBOutlet weak var filledColorBtn: UIButton!
-    @IBOutlet weak var handleColorBtn: UIButton!
+    @IBOutlet weak var firstHandleColorBtn: UIButton!
+    @IBOutlet weak var secondHandleColorBtn: UIButton!
     @IBOutlet weak var minDistSlider: UISlider!
     
     
@@ -28,6 +27,7 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
     // Actions
     @IBAction func handleTypeValueChanged(_ sender: UIStepper) {
         slider.handleType = MSCircularSliderHandleType(rawValue: Int(sender.value)) ?? slider.handleType
+        slider.secondHandleType = MSCircularSliderHandleType(rawValue: Int(sender.value)) ?? slider.secondHandleType
         handleTypeLbl.text = handleTypeStrFrom(slider.handleType)
     }
     
@@ -98,14 +98,11 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
     func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState) {
         switch currentColorPickTag {
         case 0:
-            unfilledColorBtn.setTitleColor(color, for: .normal)
-            slider.unfilledColor = color
-        case 1:
-            filledColorBtn.setTitleColor(color, for: .normal)
-            slider.filledColor = color
-        case 2:
-            handleColorBtn.setTitleColor(color, for: .normal)
+            firstHandleColorBtn.setTitleColor(color, for: .normal)
             slider.handleColor = color
+        case 1:
+            secondHandleColorBtn.setTitleColor(color, for: .normal)
+            slider.secondHandleColor = color
         default:
             break
         }

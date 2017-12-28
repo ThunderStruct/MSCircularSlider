@@ -48,12 +48,12 @@ class MarkersLabelsVC: UIViewController, MSCircularSliderDelegate, ColorPickerDe
     
     @IBAction func snapToLabelsValueChanged(_ sender: UISwitch) {
         slider?.snapToLabels = sender.isOn
-        snapToMarkerSwitch.setOn(false, animated: true) // mutually-exclusive
+        //snapToMarkerSwitch.setOn(false, animated: true) // mutually-exclusive
     }
     
     @IBAction func snapToMarkersValueChanged(_ sender: UISwitch) {
         slider?.snapToMarkers = sender.isOn
-        snapToLabelSwitch.setOn(false, animated: true)  // mutually-exclusive
+        //snapToLabelSwitch.setOn(false, animated: true)  // mutually-exclusive
     }
     
     

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eSB-rX-z5M">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -17,47 +17,42 @@
             <objects>
                 <viewController id="p5S-G6-7sd" customClass="SliderProperties" customModule="MSCircularSliderExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1wO-BF-yX3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="360" minValue="0.0" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="9qE-oc-Y75">
-                                <rect key="frame" x="45" y="384" width="285" height="31"/>
+                                <rect key="frame" x="49.666666666666657" y="406.66666666666669" width="314.66666666666663" height="31"/>
                                 <connections>
                                     <action selector="maxAngleAction:" destination="p5S-G6-7sd" eventType="valueChanged" id="9tQ-XU-MAw"/>
                                 </connections>
                             </slider>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q93-Gh-R8A" customClass="MSCircularSlider" customModule="MSCircularSliderExample" customModuleProvider="target">
-                                <rect key="frame" x="94" y="96" width="187.5" height="187.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q93-Gh-R8A" customClass="MSCircularSlider">
+                                <rect key="frame" x="103.66666666666669" y="96" width="207" height="207"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q93-Gh-R8A" secondAttribute="height" multiplier="1:1" id="UJX-Qg-Wc5"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="_markerCount">
-                                        <integer key="value" value="0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="2" maximumValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="UyW-VL-Knn">
-                                <rect key="frame" x="47" y="334" width="94" height="29"/>
+                                <rect key="frame" x="51.666666666666657" y="356.66666666666669" width="94" height="29"/>
                                 <connections>
                                     <action selector="handleTypeValueChanged:" destination="p5S-G6-7sd" eventType="valueChanged" id="vf9-ao-agu"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handle Type" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zt0-b4-vuZ">
-                                <rect key="frame" x="156" y="334" width="172" height="30"/>
+                                <rect key="frame" x="170.33333333333331" y="356.66666666666669" width="191.99999999999994" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJS-Fe-IhN">
-                                <rect key="frame" x="122.5" y="161.5" width="130.5" height="56.5"/>
+                                <rect key="frame" x="134.66666666666669" y="168.33333333333334" width="144.66666666666669" height="62.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ppS-VC-PWU">
-                                <rect key="frame" x="56.5" y="583" width="262.5" height="67"/>
+                                <rect key="frame" x="62" y="605.66666666666663" width="290" height="67"/>
                                 <string key="text">Maximum Angle: 360°
 Line Width: 5
 Rotation Angle: Computed
@@ -67,7 +62,7 @@ Rotation Angle: Computed
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-Ov-pUL">
-                                <rect key="frame" x="47" y="434" width="84" height="30"/>
+                                <rect key="frame" x="51.666666666666657" y="456.66666666666669" width="94" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Unfilled Color">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,7 +72,7 @@ Rotation Angle: Computed
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-Q5-Lxt">
-                                <rect key="frame" x="146" y="434" width="83.5" height="30"/>
+                                <rect key="frame" x="160.66666666666663" y="456.66666666666669" width="93.333333333333343" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Filled Color">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,7 +82,7 @@ Rotation Angle: Computed
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFw-Ax-sTv">
-                                <rect key="frame" x="244.5" y="434" width="83.5" height="30"/>
+                                <rect key="frame" x="269" y="456.66666666666669" width="93.333333333333314" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Handle Color">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -97,13 +92,13 @@ Rotation Angle: Computed
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="361" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ2-JE-xfr">
-                                <rect key="frame" x="45" y="484" width="285" height="31"/>
+                                <rect key="frame" x="49.666666666666657" y="506.66666666666663" width="314.66666666666663" height="30.999999999999886"/>
                                 <connections>
                                     <action selector="rotationAngleAction:" destination="p5S-G6-7sd" eventType="valueChanged" id="Lwb-ut-Udg"/>
                                 </connections>
                             </slider>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="5" minimumValue="2" maximumValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="6Rl-cv-q3z">
-                                <rect key="frame" x="140.5" y="534" width="94" height="29"/>
+                                <rect key="frame" x="155.33333333333331" y="556.66666666666663" width="94" height="29"/>
                                 <connections>
                                     <action selector="lineWidthAction:" destination="p5S-G6-7sd" eventType="valueChanged" id="zPB-4O-IhA"/>
                                 </connections>
@@ -174,21 +169,21 @@ Rotation Angle: Computed
             <objects>
                 <tableViewController id="SCr-7I-dGV" customClass="ExamplesMenu" customModule="MSCircularSliderExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="1" id="iZS-Jd-2UG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="y7g-LJ-JmF">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="disclosureIndicator" textLabel="UP8-Oa-MCx" style="IBUITableViewCellStyleDefault" id="BsK-Eh-vs7">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BsK-Eh-vs7" id="fNS-Oe-J1U">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="74.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Slider Properties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UP8-Oa-MCx">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="74.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="359" height="74.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -198,14 +193,14 @@ Rotation Angle: Computed
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="disclosureIndicator" textLabel="p5C-5B-Yf0" style="IBUITableViewCellStyleDefault" id="RQO-fC-z76">
-                                        <rect key="frame" x="0.0" y="75" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="75" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RQO-fC-z76" id="UHh-UM-hPy">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="74.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Markers and Labels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p5C-5B-Yf0">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="74.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="359" height="74.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -215,14 +210,14 @@ Rotation Angle: Computed
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="disclosureIndicator" textLabel="6NA-s2-cdS" style="IBUITableViewCellStyleDefault" id="u8w-OY-EAv">
-                                        <rect key="frame" x="0.0" y="150" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="150" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u8w-OY-EAv" id="N6U-9Z-frn">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="74.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Double Handle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6NA-s2-cdS">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="74.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="359" height="74.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -232,14 +227,14 @@ Rotation Angle: Computed
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="disclosureIndicator" textLabel="QG1-rj-IpR" style="IBUITableViewCellStyleDefault" id="4a4-Qy-U6R">
-                                        <rect key="frame" x="0.0" y="225" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="225" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4a4-Qy-U6R" id="DvC-pj-XZT">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="74.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Gradient Line Colors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QG1-rj-IpR">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="74.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="359" height="74.666666666666671"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -273,14 +268,14 @@ Rotation Angle: Computed
             <objects>
                 <viewController id="Gep-Eo-baI" customClass="MarkersLabelsVC" customModule="MSCircularSliderExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uHl-gW-JNL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQe-Pi-mJg">
-                                <rect key="frame" x="94" y="96" width="187.5" height="187.5"/>
+                                <rect key="frame" x="103.66666666666669" y="96" width="207" height="207"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzp-HG-mPb">
-                                        <rect key="frame" x="27.5" y="65" width="131.5" height="56.5"/>
+                                        <rect key="frame" x="30.333333333333329" y="71.666666666666657" width="145" height="62.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -295,7 +290,7 @@ Rotation Angle: Computed
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comma-separated labels" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HmS-vf-WGt">
-                                <rect key="frame" x="47" y="326" width="281" height="30"/>
+                                <rect key="frame" x="51.666666666666657" y="348.66666666666669" width="310.66666666666663" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -304,43 +299,43 @@ Rotation Angle: Computed
                                 </connections>
                             </textField>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="cib-Ja-xKd">
-                                <rect key="frame" x="47" y="381" width="94" height="29"/>
+                                <rect key="frame" x="51.666666666666657" y="403.66666666666669" width="94" height="29"/>
                                 <connections>
                                     <action selector="markerCountStepperValueChanged:" destination="Gep-Eo-baI" eventType="valueChanged" id="igU-89-waU"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Markers" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVz-KG-NTF">
-                                <rect key="frame" x="156" y="381" width="172" height="31"/>
+                                <rect key="frame" x="170.33333333333331" y="403.66666666666669" width="191.99999999999994" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9W0-dK-9sb">
-                                <rect key="frame" x="279" y="493" width="51" height="31"/>
+                                <rect key="frame" x="313.33333333333331" y="515.66666666666663" width="51" height="31"/>
                                 <connections>
                                     <action selector="snapToLabelsValueChanged:" destination="Gep-Eo-baI" eventType="valueChanged" id="lkq-k8-GZ4"/>
                                 </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dLi-Rd-ZzR">
-                                <rect key="frame" x="279" y="549" width="51" height="31"/>
+                                <rect key="frame" x="313.33333333333331" y="571.66666666666663" width="51" height="31"/>
                                 <connections>
                                     <action selector="snapToMarkersValueChanged:" destination="Gep-Eo-baI" eventType="valueChanged" id="UAg-WZ-Vqb"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snap To Labels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwr-DB-AEg">
-                                <rect key="frame" x="47" y="492.5" width="217" height="31"/>
+                                <rect key="frame" x="51.666666666666671" y="515" width="246.66666666666663" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snap To Markers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7KO-Pk-BwV">
-                                <rect key="frame" x="47" y="549" width="217" height="31"/>
+                                <rect key="frame" x="51.666666666666671" y="571.66666666666663" width="246.66666666666663" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6x-JS-SMF">
-                                <rect key="frame" x="47" y="437" width="133" height="31"/>
+                                <rect key="frame" x="51.666666666666657" y="459.66666666666669" width="148" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Labels Color">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -350,7 +345,7 @@ Rotation Angle: Computed
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-0Q-E3v">
-                                <rect key="frame" x="195" y="437" width="133" height="31"/>
+                                <rect key="frame" x="214.66666666666669" y="459.66666666666669" width="147.66666666666669" height="31"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Markers Color">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -379,7 +374,7 @@ Rotation Angle: Computed
                             <constraint firstItem="hVz-KG-NTF" firstAttribute="trailing" secondItem="HmS-vf-WGt" secondAttribute="trailing" id="Vgu-cY-nek"/>
                             <constraint firstItem="iwr-DB-AEg" firstAttribute="height" secondItem="hVz-KG-NTF" secondAttribute="height" id="WcE-wr-2P3"/>
                             <constraint firstItem="9W0-dK-9sb" firstAttribute="trailing" secondItem="hVz-KG-NTF" secondAttribute="trailing" id="ZE1-5o-NuY"/>
-                            <constraint firstItem="NQe-Pi-mJg" firstAttribute="top" secondItem="XOd-Qg-EYD" secondAttribute="top" multiplier="1.5" constant="8" symbolic="YES" id="ZZV-tI-0T1"/>
+                            <constraint firstItem="NQe-Pi-mJg" firstAttribute="top" secondItem="XOd-Qg-EYD" secondAttribute="top" multiplier="1.5" symbolic="YES" id="ZZV-tI-0T1"/>
                             <constraint firstItem="9W0-dK-9sb" firstAttribute="leading" secondItem="iwr-DB-AEg" secondAttribute="trailing" constant="15" id="a3n-vY-2mL"/>
                             <constraint firstItem="V6x-JS-SMF" firstAttribute="top" secondItem="cib-Ja-xKd" secondAttribute="bottom" constant="25" id="air-4h-G4a"/>
                             <constraint firstItem="HmS-vf-WGt" firstAttribute="width" secondItem="uHl-gW-JNL" secondAttribute="width" multiplier="0.75" id="avl-IR-4XW"/>
@@ -421,7 +416,7 @@ Rotation Angle: Computed
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eSB-rX-z5M" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="112-AR-pxm">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -438,42 +433,42 @@ Rotation Angle: Computed
             <objects>
                 <viewController id="7ZA-Ap-WPC" customClass="DoubleHandleVC" customModule="MSCircularSliderExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZtM-4A-C97">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="360" minValue="0.0" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="0lJ-Uv-4bc">
-                                <rect key="frame" x="45" y="389" width="285" height="31"/>
+                                <rect key="frame" x="49.666666666666657" y="393.66666666666669" width="314.66666666666663" height="31.666666666666629"/>
                                 <connections>
                                     <action selector="maxAngleAction:" destination="7ZA-Ap-WPC" eventType="valueChanged" id="sOQ-Wo-FeX"/>
                                 </connections>
                             </slider>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbV-6p-dcC" customClass="MSDoubleHandleCircularSlider" customModule="MSCircularSliderExample" customModuleProvider="target">
-                                <rect key="frame" x="94" y="96" width="187.5" height="187.5"/>
+                                <rect key="frame" x="103.66666666666669" y="96" width="207" height="207"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WbV-6p-dcC" secondAttribute="height" multiplier="1:1" id="eBU-Oz-h4l"/>
                                 </constraints>
                             </view>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" maximumValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="mjo-vM-bal">
-                                <rect key="frame" x="47" y="334" width="94" height="29"/>
+                            <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" maximumValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="mjo-vM-bal">
+                                <rect key="frame" x="51.666666666666657" y="338" width="94" height="29"/>
                                 <connections>
                                     <action selector="handleTypeValueChanged:" destination="7ZA-Ap-WPC" eventType="valueChanged" id="cJO-tc-PdY"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handle Type" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k65-Dj-rd4">
-                                <rect key="frame" x="156" y="334" width="172" height="30"/>
+                                <rect key="frame" x="170.33333333333331" y="338" width="191.99999999999994" height="30.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Values" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDR-bl-ztI">
-                                <rect key="frame" x="122.5" y="161.5" width="130.5" height="56.5"/>
+                                <rect key="frame" x="134.66666666666669" y="168.33333333333334" width="144.66666666666669" height="62.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dyL-1y-HmX">
-                                <rect key="frame" x="38" y="543.5" width="300" height="118.5"/>
+                                <rect key="frame" x="41.333333333333343" y="549.33333333333348" width="331.33333333333337" height="181.66666666666663"/>
                                 <string key="text">Maximum Angle: 360°
 
 Minimum Distance Between Handles: 10
@@ -483,37 +478,27 @@ Minimum Distance Between Handles: 10
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRB-Rb-blh">
-                                <rect key="frame" x="47" y="444" width="84" height="29.5"/>
+                                <rect key="frame" x="51.666666666666657" y="449.33333333333331" width="150.66666666666669" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Unfilled Color">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="First Handle Color">
+                                    <color key="titleColor" red="0.40784313725490196" green="0.40784313725490196" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="colorPickAction:" destination="7ZA-Ap-WPC" eventType="touchUpInside" id="Hba-jR-Lqj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPh-0Y-Iq3">
-                                <rect key="frame" x="146" y="444" width="83.5" height="29.5"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jE7-6V-xAp">
+                                <rect key="frame" x="212.33333333333331" y="449.33333333333331" width="149.99999999999994" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Filled Color">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="colorPickAction:" destination="7ZA-Ap-WPC" eventType="touchUpInside" id="hlb-PR-3ct"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jE7-6V-xAp">
-                                <rect key="frame" x="244.5" y="444" width="83.5" height="29.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Handle Color">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Second Handle Color">
+                                    <color key="titleColor" red="0.40784313725490196" green="0.40784313725490196" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="adobeRGB1998"/>
                                 </state>
                                 <connections>
                                     <action selector="colorPickAction:" destination="7ZA-Ap-WPC" eventType="touchUpInside" id="JRv-lX-Fgf"/>
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="CrH-h2-xPS">
-                                <rect key="frame" x="45" y="498.5" width="285" height="31"/>
+                                <rect key="frame" x="49.666666666666657" y="504.33333333333337" width="314.66666666666663" height="31.000000000000114"/>
                                 <connections>
                                     <action selector="minDistanceValueChanged:" destination="7ZA-Ap-WPC" eventType="valueChanged" id="f6k-Z8-c9Z"/>
                                 </connections>
@@ -521,22 +506,20 @@ Minimum Distance Between Handles: 10
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mjo-vM-bal" firstAttribute="top" secondItem="WbV-6p-dcC" secondAttribute="bottom" multiplier="1.15" constant="8" symbolic="YES" id="1TA-Qv-Je1"/>
                             <constraint firstItem="WbV-6p-dcC" firstAttribute="width" secondItem="ZtM-4A-C97" secondAttribute="width" multiplier="0.5" id="54h-Eg-mb8"/>
+                            <constraint firstItem="jE7-6V-xAp" firstAttribute="leading" secondItem="DRB-Rb-blh" secondAttribute="trailing" constant="10" id="6j0-6B-2zF"/>
                             <constraint firstItem="JDR-bl-ztI" firstAttribute="height" secondItem="WbV-6p-dcC" secondAttribute="height" multiplier="0.3" id="6ln-cU-qgl"/>
                             <constraint firstItem="dyL-1y-HmX" firstAttribute="top" secondItem="CrH-h2-xPS" secondAttribute="bottom" constant="15" id="8yj-mj-jj7"/>
-                            <constraint firstItem="jE7-6V-xAp" firstAttribute="leading" secondItem="QPh-0Y-Iq3" secondAttribute="trailing" constant="15" id="C4G-ba-41d"/>
-                            <constraint firstItem="QPh-0Y-Iq3" firstAttribute="leading" secondItem="DRB-Rb-blh" secondAttribute="trailing" constant="15" id="CTn-fB-mfn"/>
-                            <constraint firstItem="QPh-0Y-Iq3" firstAttribute="centerY" secondItem="DRB-Rb-blh" secondAttribute="centerY" id="Dqt-H9-PqM"/>
+                            <constraint firstItem="DRB-Rb-blh" firstAttribute="width" secondItem="jE7-6V-xAp" secondAttribute="width" id="BTe-Ci-0E4"/>
+                            <constraint firstItem="jE7-6V-xAp" firstAttribute="height" secondItem="DRB-Rb-blh" secondAttribute="height" id="CA5-YI-RC8"/>
                             <constraint firstItem="jE7-6V-xAp" firstAttribute="trailing" secondItem="0lJ-Uv-4bc" secondAttribute="trailing" id="FFo-Eh-xcU"/>
-                            <constraint firstItem="QPh-0Y-Iq3" firstAttribute="width" secondItem="jE7-6V-xAp" secondAttribute="width" id="Fjs-2c-lZl"/>
                             <constraint firstItem="WbV-6p-dcC" firstAttribute="centerX" secondItem="V6g-DX-cIc" secondAttribute="centerX" id="H7F-jl-atg"/>
                             <constraint firstItem="k65-Dj-rd4" firstAttribute="trailing" secondItem="0lJ-Uv-4bc" secondAttribute="trailing" id="HI6-2k-TNg"/>
                             <constraint firstItem="k65-Dj-rd4" firstAttribute="leading" secondItem="mjo-vM-bal" secondAttribute="trailing" constant="15" id="Hj1-pJ-3Pl"/>
                             <constraint firstItem="mjo-vM-bal" firstAttribute="leading" secondItem="0lJ-Uv-4bc" secondAttribute="leading" id="ItQ-XU-Oot"/>
                             <constraint firstItem="JDR-bl-ztI" firstAttribute="centerY" secondItem="WbV-6p-dcC" secondAttribute="centerY" id="M4y-Zl-Usf"/>
+                            <constraint firstItem="mjo-vM-bal" firstAttribute="top" secondItem="WbV-6p-dcC" secondAttribute="bottom" constant="35" id="MvH-rp-VMm"/>
                             <constraint firstItem="WbV-6p-dcC" firstAttribute="top" secondItem="V6g-DX-cIc" secondAttribute="top" multiplier="1.5" symbolic="YES" id="NTU-tj-HJ8"/>
-                            <constraint firstItem="jE7-6V-xAp" firstAttribute="height" secondItem="QPh-0Y-Iq3" secondAttribute="height" id="WVw-na-uTG"/>
                             <constraint firstItem="0lJ-Uv-4bc" firstAttribute="centerX" secondItem="V6g-DX-cIc" secondAttribute="centerX" id="XpP-ch-UNM"/>
                             <constraint firstItem="k65-Dj-rd4" firstAttribute="height" secondItem="mjo-vM-bal" secondAttribute="height" id="ZTl-5h-XTM"/>
                             <constraint firstItem="k65-Dj-rd4" firstAttribute="centerY" secondItem="mjo-vM-bal" secondAttribute="centerY" id="a44-Vq-1WE"/>
@@ -546,17 +529,15 @@ Minimum Distance Between Handles: 10
                             <constraint firstItem="JDR-bl-ztI" firstAttribute="width" secondItem="WbV-6p-dcC" secondAttribute="width" multiplier="0.7" id="chf-fH-a1p"/>
                             <constraint firstItem="V6g-DX-cIc" firstAttribute="bottom" secondItem="dyL-1y-HmX" secondAttribute="bottom" constant="5" id="dfJ-ra-d5i"/>
                             <constraint firstItem="0lJ-Uv-4bc" firstAttribute="top" secondItem="mjo-vM-bal" secondAttribute="bottom" constant="25" id="hpb-zn-dEc"/>
-                            <constraint firstItem="jE7-6V-xAp" firstAttribute="centerY" secondItem="QPh-0Y-Iq3" secondAttribute="centerY" id="mFo-x7-1lU"/>
                             <constraint firstItem="DRB-Rb-blh" firstAttribute="leading" secondItem="0lJ-Uv-4bc" secondAttribute="leading" id="nk3-uV-x4t"/>
-                            <constraint firstItem="DRB-Rb-blh" firstAttribute="width" secondItem="QPh-0Y-Iq3" secondAttribute="width" id="q5w-Nt-8qs"/>
                             <constraint firstItem="JDR-bl-ztI" firstAttribute="centerX" secondItem="WbV-6p-dcC" secondAttribute="centerX" id="rYB-tp-3B8"/>
                             <constraint firstItem="DRB-Rb-blh" firstAttribute="top" secondItem="0lJ-Uv-4bc" secondAttribute="bottom" constant="25" id="rk7-TX-t1s"/>
-                            <constraint firstItem="QPh-0Y-Iq3" firstAttribute="height" secondItem="DRB-Rb-blh" secondAttribute="height" id="t6j-UQ-v4K"/>
                             <constraint firstItem="dyL-1y-HmX" firstAttribute="centerX" secondItem="V6g-DX-cIc" secondAttribute="centerX" id="tUX-J4-Vbf"/>
                             <constraint firstItem="dyL-1y-HmX" firstAttribute="width" secondItem="ZtM-4A-C97" secondAttribute="width" multiplier="0.8" id="tYz-Lw-2P6"/>
                             <constraint firstItem="mjo-vM-bal" firstAttribute="width" secondItem="ZtM-4A-C97" secondAttribute="width" multiplier="0.25" id="trJ-Vv-UFf"/>
                             <constraint firstItem="0lJ-Uv-4bc" firstAttribute="height" secondItem="mjo-vM-bal" secondAttribute="height" id="vPq-bR-FNv"/>
                             <constraint firstItem="CrH-h2-xPS" firstAttribute="height" secondItem="0lJ-Uv-4bc" secondAttribute="height" id="wTo-qv-Wl4"/>
+                            <constraint firstItem="jE7-6V-xAp" firstAttribute="centerY" secondItem="DRB-Rb-blh" secondAttribute="centerY" id="wUZ-eV-dio"/>
                             <constraint firstItem="CrH-h2-xPS" firstAttribute="top" secondItem="DRB-Rb-blh" secondAttribute="bottom" constant="25" id="y5O-RJ-kI2"/>
                             <constraint firstItem="DRB-Rb-blh" firstAttribute="height" secondItem="0lJ-Uv-4bc" secondAttribute="height" id="y9v-Wu-pHE"/>
                         </constraints>
@@ -564,12 +545,11 @@ Minimum Distance Between Handles: 10
                     </view>
                     <connections>
                         <outlet property="descriptionLbl" destination="dyL-1y-HmX" id="cfo-Kf-yPF"/>
-                        <outlet property="filledColorBtn" destination="QPh-0Y-Iq3" id="SY6-Fn-WT7"/>
-                        <outlet property="handleColorBtn" destination="jE7-6V-xAp" id="5Km-5Q-2V6"/>
-                        <outlet property="handleTypeLbl" destination="k65-Dj-rd4" id="oKU-r0-QBO"/>
+                        <outlet property="firstHandleColorBtn" destination="DRB-Rb-blh" id="Dri-oU-p56"/>
+                        <outlet property="handleTypeLbl" destination="k65-Dj-rd4" id="9tN-PL-hOf"/>
                         <outlet property="minDistSlider" destination="CrH-h2-xPS" id="Hu6-KV-YwE"/>
+                        <outlet property="secondHandleColorBtn" destination="jE7-6V-xAp" id="y8q-u6-BZX"/>
                         <outlet property="slider" destination="WbV-6p-dcC" id="4eQ-fj-kne"/>
-                        <outlet property="unfilledColorBtn" destination="DRB-Rb-blh" id="eYZ-6B-JZu"/>
                         <outlet property="valuesLbl" destination="JDR-bl-ztI" id="7cf-W1-lKZ"/>
                     </connections>
                 </viewController>
@@ -582,11 +562,11 @@ Minimum Distance Between Handles: 10
             <objects>
                 <viewController id="M06-m7-AWA" customClass="GradientColorsVC" customModule="MSCircularSliderExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rZs-kP-8UA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxu-Nw-nxR" customClass="MSGradientCircularSlider" customModule="MSCircularSliderExample" customModuleProvider="target">
-                                <rect key="frame" x="94" y="96" width="187.5" height="187.5"/>
+                                <rect key="frame" x="103.66666666666669" y="96" width="207" height="207"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="oxu-Nw-nxR" secondAttribute="height" multiplier="1:1" id="VCR-tx-nar"/>
@@ -598,13 +578,13 @@ Minimum Distance Between Handles: 10
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXO-CI-y43">
-                                <rect key="frame" x="122.5" y="161.5" width="130.5" height="56.5"/>
+                                <rect key="frame" x="134.66666666666669" y="168.33333333333334" width="144.66666666666669" height="62.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qz1-uG-o8i">
-                                <rect key="frame" x="47" y="334" width="281" height="65"/>
+                                <rect key="frame" x="51.666666666666657" y="356.66666666666669" width="310.66666666666663" height="78"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="First Color">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -614,7 +594,7 @@ Minimum Distance Between Handles: 10
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7DB-as-FLD">
-                                <rect key="frame" x="47" y="514.5" width="281" height="65.5"/>
+                                <rect key="frame" x="51.666666666666657" y="562.66666666666652" width="310.66666666666663" height="77.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Third Color">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -624,7 +604,7 @@ Minimum Distance Between Handles: 10
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flr-UO-qLT">
-                                <rect key="frame" x="47" y="424" width="281" height="65.5"/>
+                                <rect key="frame" x="51.666666666666657" y="459.66666666666663" width="310.66666666666663" height="77.999999999999886"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Second Color">
                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>

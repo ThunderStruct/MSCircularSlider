@@ -14,7 +14,7 @@ extension MSGradientCircularSlider {
     // GRADIENT COLORS PROPERTIES
     //================================================================================
     
-    @IBInspectable var _firstGradientColor: UIColor {
+    @IBInspectable public var _firstGradientColor: UIColor {
         get {
             return gradientColors[0]
         }
@@ -23,7 +23,7 @@ extension MSGradientCircularSlider {
         }
     }
     
-    @IBInspectable var _secondGradientColor: UIColor {
+    @IBInspectable public var _secondGradientColor: UIColor {
         get {
             return gradientColors[1]
         }
@@ -32,7 +32,7 @@ extension MSGradientCircularSlider {
         }
     }
     
-    @IBInspectable var _thirdGradientColor: UIColor {
+    @IBInspectable public var _thirdGradientColor: UIColor {
         get {
             return gradientColors[2]
         }

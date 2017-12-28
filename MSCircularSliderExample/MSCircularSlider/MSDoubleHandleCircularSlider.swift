@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MSDoubleHandleCircularSliderDelegate: MSCircularSliderProtocol {
+public protocol MSDoubleHandleCircularSliderDelegate: MSCircularSliderProtocol {
     func circularSlider(_ slider: MSCircularSlider, valueChangedTo firstValue: Double, secondValue: Double, isFirstHandle: Bool?, fromUser: Bool)   // fromUser indicates whether the value changed by sliding the handle (fromUser == true) or through other means (fromUser == false, isFirstHandle == nil)
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith firstValue: Double, secondValue: Double, isFirstHandle: Bool)
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith firstValue: Double, secondValue: Double, isFirstHandle: Bool)
@@ -20,7 +20,7 @@ extension MSDoubleHandleCircularSliderDelegate {
 }
 
 @IBDesignable
-class MSDoubleHandleCircularSlider: MSCircularSlider {
+public class MSDoubleHandleCircularSlider: MSCircularSlider {
     
     //================================================================================
     // MEMBERS
@@ -37,8 +37,8 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     
-    // SECOND HANDLE'S PROPERTIES
-    var minimumHandlesDistance: CGFloat = 10 {    // distance between handles
+    // DOUBLE HANDLE SLIDER PROPERTIES
+    public var minimumHandlesDistance: CGFloat = 10 {    // distance between handles
         didSet {
             let maxValue = CGFloat.pi * calculatedRadius * maximumAngle / 360.0
             
@@ -53,14 +53,10 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
-    override var handleHighlightable: Bool {
-        didSet {
-            secondHandle.isHighlightable = handleHighlightable
-            setNeedsDisplay()
-        }
-    }
+    // SECOND HANDLE'S PROPERTIES
+    let secondHandle = MSCircularSliderHandle()
     
-    var secondCurrentValue: Double {      // second handle's value
+    public var secondCurrentValue: Double {      // second handle's value
         set {
             let val = min(max(minimumValue, newValue), maximumValue)
             
@@ -76,17 +72,54 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
-    var secondAngle: CGFloat = 60 {
+    public var secondAngle: CGFloat = 60 {
         didSet {
-            //assert(secondAngle >= 0 && secondAngle <= 360, "secondAngle \(secondAngle) must be between 0 and 360 inclusive")
             secondAngle = max(0.0, secondAngle).truncatingRemainder(dividingBy: maximumAngle + 1)
         }
     }
     
-    let secondHandle = MSCircularSliderHandle()
+    public var secondHandleColor: UIColor = .darkGray {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleType: MSCircularSliderHandleType = .largeCircle {
+        didSet {
+            setNeedsUpdateConstraints()
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleEnlargementPoints: Int = 10 {
+        didSet {
+            setNeedsUpdateConstraints()
+            setNeedsDisplay()
+        }
+    }
+    
+    public var secondHandleHighlightable: Bool = true {
+        didSet {
+            secondHandle.isHighlightable = secondHandleHighlightable
+            setNeedsDisplay()
+        }
+    }
+    
+    // CALCULATED MEMBERS
+    internal var secondHandleDiameter: CGFloat {
+        switch handleType {
+        case .smallCircle:
+            return CGFloat(Double(lineWidth) / 2.0)
+        case .mediumCircle:
+            return CGFloat(lineWidth)
+        case .largeCircle, .doubleCircle:
+            return CGFloat(lineWidth + secondHandleEnlargementPoints)
+            
+        }
+    }
     
     // OVERRIDDEN MEMBERS
-    override var maximumAngle: CGFloat {
+    override public var maximumAngle: CGFloat {
         didSet {
             // to account for dynamic maximumAngle changes
             secondCurrentValue = valueFrom(angle: secondAngle)
@@ -94,7 +127,7 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     @available(*, unavailable, message: "this feature is not implemented yet")
-    override var snapToLabels: Bool {
+    override public var snapToLabels: Bool {
         set {
             
         }
@@ -104,7 +137,7 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     @available(*, unavailable, message: "this feature is not implemented yet")
-    override var snapToMarkers: Bool {
+    override public var snapToMarkers: Bool {
         set {
             
         }
@@ -117,13 +150,13 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
     // VIRTUAL METHODS
     //================================================================================
     
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         super.draw(rect)
         let ctx = UIGraphicsGetCurrentContext()
         
         // Draw the second handle
         let handleCenter = super.pointOnCircleAt(angle: secondAngle)
-        secondHandle.frame = self.drawHandle(ctx: ctx!, atPoint: handleCenter, handle: secondHandle)
+        secondHandle.frame = self.drawSecondHandle(ctx: ctx!, atPoint: handleCenter, handle: secondHandle)
     }
     
     override func drawLine(ctx: CGContext) {
@@ -136,7 +169,7 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
         drawArc(ctx: ctx, center: centerPoint, radius: calculatedRadius, lineWidth: CGFloat(lineWidth), fromAngle: CGFloat(angle), toAngle: CGFloat(secondAngle), lineCap: filledLineCap)
     }
     
-    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    override public func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         
         let handleCenter = pointOnCircleAt(angle: angle)
@@ -169,7 +202,7 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
         return false
     }
     
-    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    override public func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let point = touch.location(in: self)
         let newAngle = floor(calculateAngle(from: centerPoint, to: point))
         
@@ -187,7 +220,7 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
         return true
     }
     
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+    override public func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         castDelegate?.circularSlider(self, endedTrackingWith: currentValue, secondValue: secondCurrentValue, isFirstHandle: handle.isPressed)
         
         handle.isPressed = false
@@ -203,12 +236,35 @@ class MSDoubleHandleCircularSlider: MSCircularSlider {
     // DRAWING METHODS
     //================================================================================
     
-    override func drawHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
+    internal func drawSecondHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
         // Comment out the call to the super class and customize the second handle here
         // Must set calculatedColor for secondHandle in this case to set the handle's "highlight" if needed
         // TODO: add separate secondHandleDiameter, secondHandleColor, and secondHandleType properties
         
-        return super.drawHandle(ctx: ctx, atPoint: handleCenter, handle: handle)
+        ctx.saveGState()
+        var frame: CGRect!
+        
+        // Highlight == 0.9 alpha
+        let calculatedHandleColor = handle.isHighlightable && handle.isPressed ? secondHandleColor.withAlphaComponent(0.9) : secondHandleColor
+        
+        // Handle color calculation
+        if secondHandleType == .doubleCircle {
+            calculatedHandleColor.set()
+            drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.25 * secondHandleDiameter)
+            
+            calculatedHandleColor.withAlphaComponent(0.7).set()
+            
+            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
+        }
+        else {
+            calculatedHandleColor.set()
+            
+            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
+        }
+        
+        
+        ctx.saveGState()
+        return frame
     }
     
     //================================================================================
