@@ -8,16 +8,16 @@
 import UIKit
 
 @IBDesignable
-class MSGradientCircularSlider: MSCircularSlider {
+public class MSGradientCircularSlider: MSCircularSlider {
     
     // Gradient colors array
-    var gradientColors: [UIColor] = [.lightGray, .blue, .darkGray] {
+    public var gradientColors: [UIColor] = [.lightGray, .blue, .darkGray] {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override var angle: CGFloat {
+    override public var angle: CGFloat {
         didSet {
             let anglePercentage = Double(angle) * 100.0 / Double(maximumAngle)
             filledColor = colorFor(percentage: anglePercentage)
@@ -30,7 +30,7 @@ class MSGradientCircularSlider: MSCircularSlider {
     // SETTER METHODS
     //================================================================================
     
-    func addColor(_ color: UIColor) {
+    public func addColor(_ color: UIColor) {
         gradientColors.append(color)
         
         let anglePercentage = Double(angle) * 100.0 / Double(maximumAngle)
@@ -38,7 +38,7 @@ class MSGradientCircularSlider: MSCircularSlider {
         setNeedsDisplay()
     }
     
-    func changeColor(at index: Int, newColor: UIColor) {
+    public func changeColor(at index: Int, newColor: UIColor) {
         assert(gradientColors.count > index && index >= 0, "gradient color index out of bounds")
         gradientColors[index] = newColor
         
@@ -47,7 +47,7 @@ class MSGradientCircularSlider: MSCircularSlider {
         setNeedsDisplay()
     }
     
-    func removeColor(at index: Int) {
+    public func removeColor(at index: Int) {
         assert(gradientColors.count > index && index >= 0, "gradient color index out of bounds")
         assert(gradientColors.count <= 2, "gradient colors array must contain at least 2 elements")
         gradientColors.remove(at: index)

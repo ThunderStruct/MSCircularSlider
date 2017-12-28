@@ -48,7 +48,7 @@ Most members are `IBInspectable`, providing multiple ways of complete initializa
 ##### Interface Builder Initialization
 
 <p>
-  <img src="https://i.imgur.com/iLp7ifC.png">
+  <img src="https://i.imgur.com/F4ZrBze.png">
 </p>
 
 ##### Programmatic Initialization
@@ -98,7 +98,7 @@ view.addSubview(slider!)
   - `markerImage`: an optional UIImage to be drawn instead of the standard ellipse markers - default nil
     - note: markerPath takes precedence over markerImage, so if both members are set, the images will not be drawn
   - `snapToMarkers`: indicates whether the handle should _snap_ to the nearest marker upon handle-release - default false
-    - note: if both snapToMarkers and snapToLabels are true, the handle will be snapped to the nearest marker
+    - ~note: if both snapToMarkers and snapToLabels are true, the handle will be snapped to the nearest marker~ _removed mutual-exclusion in 1.1.0_
   - `addLabel(_ string: String)`: adds a string to the labels array and triggers required drawing methods
   - `changeLabel(at index: Int, string: String)`: replaces the label's string at the given index with the provided string
   - `removeLabel(at index: Int)`: removes the string from the labels array at the given index
@@ -110,6 +110,11 @@ Inherits from MSCircularSlider with the following differences
     - note: please check the _Protocols_ segment below for more info about the abstract delegation model used
   - `minimumHandlesDistance`: indicates the minimum arc length between the two handles - default 10.0
   - `secondCurrentValue`: the current value of the second handle - default calculated from 60° angle
+  - `secondHandleType`: indicates the type of the second handle - default .largeCircle
+  - `secondHandleColor`: the second handle's color - default .darkGrey
+  - `secondHandleEnlargementPoints`: the number of points the second handle is larger than lineWidth - default 10
+  - note: this property only applies to handles of types .largeCircle or .doubleCircle
+  - `secondHandleHighlightable`: indicates whether the second handle should _highlight_ (becomes semitransparent) while being pressed - default true
   - `snapToLabels`: from the super class - overridden and made unavailable
   - `snapToMarkers`: from the super class - overriden and made unavailable
 
@@ -148,9 +153,9 @@ Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircula
 
 ## Todos
 
- - [ ] Eliminate mutual-exlusion between `snapToLabels` and `snapToMarkers`
+ - [x] Eliminate mutual-exlusion between `snapToLabels` and `snapToMarkers`
  - [ ] Add snapping feature for `MSDoubleHandleCircularSlider`
- - [ ] Add independent members for the second handle in `MSDoubleHandleCircularSlider` to customize each handle individually
+ - [x] Add independent members for the second handle in `MSDoubleHandleCircularSlider` to customize each handle individually
  - [ ] Add `MSCircularSliderMaterial` enum that specifies different _finishes_ for the slider, including
    - Glossy
    - Matte

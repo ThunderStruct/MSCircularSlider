@@ -14,7 +14,7 @@ extension MSDoubleHandleCircularSlider {
     // SECOND HANDLE PROPERTIES
     //================================================================================
     
-    @IBInspectable var _minimumHandlesDistance: CGFloat {
+    @IBInspectable public var _minimumHandlesDistance: CGFloat {
         get {
             return minimumHandlesDistance
         }
@@ -23,7 +23,7 @@ extension MSDoubleHandleCircularSlider {
         }
     }
     
-    @IBInspectable var _secondCurrentValue: Double {
+    @IBInspectable public var _secondCurrentValue: Double {
         get {
             return secondCurrentValue
         }

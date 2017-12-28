@@ -13,7 +13,7 @@ extension MSCircularSlider {
     // VALUE PROPERTIES
     //================================================================================
     
-    @IBInspectable var _minimumValue: Double {
+    @IBInspectable public var _minimumValue: Double {
         get {
             return minimumValue
         }
@@ -22,7 +22,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _maximumValue: Double {
+    @IBInspectable public var _maximumValue: Double {
         get {
             return maximumValue
         }
@@ -31,7 +31,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _currentValue: Double {
+    @IBInspectable public var _currentValue: Double {
         get {
             return currentValue
         }
@@ -44,7 +44,7 @@ extension MSCircularSlider {
     // SHAPE PROPERTIES
     //================================================================================
     
-    @IBInspectable var _maximumAngle: CGFloat {
+    @IBInspectable public var _maximumAngle: CGFloat {
         get {
             return maximumAngle
         }
@@ -54,7 +54,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _lineWidth: Int {
+    @IBInspectable public var _lineWidth: Int {
         get {
             return lineWidth
         }
@@ -63,7 +63,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _filledColor: UIColor {
+    @IBInspectable public var _filledColor: UIColor {
         get {
             return filledColor
         }
@@ -72,7 +72,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _unfilledColor: UIColor {
+    @IBInspectable public var _unfilledColor: UIColor {
         get {
             return unfilledColor
         }
@@ -81,7 +81,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _rotationAngle: CGFloat {
+    @IBInspectable public var _rotationAngle: CGFloat {
         get {
             return rotationAngle ?? 0 as CGFloat
         }
@@ -94,7 +94,7 @@ extension MSCircularSlider {
     // HANDLE PROPERTIES
     //================================================================================
     
-    @IBInspectable var _handleType: Int {   // Takes values from 0 to 3 only
+    @IBInspectable public var _handleType: Int {   // Takes values from 0 to 3 only
         get {
             return handleType.rawValue
         }
@@ -105,7 +105,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _handleColor: UIColor {
+    @IBInspectable public var _handleColor: UIColor {
         get {
             return handleColor
         }
@@ -114,7 +114,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _handleEnlargementPoints: Int {
+    @IBInspectable public var _handleEnlargementPoints: Int {
         get {
             return handleEnlargementPoints
         }
@@ -123,7 +123,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _handleHighlightable: Bool {
+    @IBInspectable public var _handleHighlightable: Bool {
         get {
             return handleHighlightable
         }
@@ -136,7 +136,7 @@ extension MSCircularSlider {
     // LABELS PROPERTIES
     //================================================================================
     
-    @IBInspectable var _commaSeparatedLabels: String {
+    @IBInspectable public var _commaSeparatedLabels: String {
         get {
             return labels.isEmpty ? "" : labels.joined(separator: ",")
         }
@@ -148,7 +148,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _labelFont: UIFont {
+    @IBInspectable public var _labelFont: UIFont {
         get {
             return labelFont
         }
@@ -157,7 +157,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _labelColor: UIColor {
+    @IBInspectable public var _labelColor: UIColor {
         get {
             return labelColor
         }
@@ -166,7 +166,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _labelOffset: CGFloat {
+    @IBInspectable public var _labelOffset: CGFloat {
         get {
             return labelOffset
         }
@@ -175,7 +175,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _snapToLabels: Bool {
+    @IBInspectable public var _snapToLabels: Bool {
         get {
             return snapToLabels
         }
@@ -188,7 +188,7 @@ extension MSCircularSlider {
     // MARKERS PROPERTIES
     //================================================================================
     
-    @IBInspectable var _markerCount: Int {
+    @IBInspectable public var _markerCount: Int {
         get {
             return markerCount
         }
@@ -197,7 +197,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _markerColor: UIColor {
+    @IBInspectable public var _markerColor: UIColor {
         get {
             return markerColor
         }
@@ -206,7 +206,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _markerImage: UIImage {
+    @IBInspectable public var _markerImage: UIImage {
         get {
             return markerImage ?? UIImage()
         }
@@ -215,7 +215,7 @@ extension MSCircularSlider {
         }
     }
     
-    @IBInspectable var _snapToMarkers: Bool {
+    @IBInspectable public var _snapToMarkers: Bool {
         get {
             return snapToMarkers
         }

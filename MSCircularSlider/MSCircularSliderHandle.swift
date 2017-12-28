@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum MSCircularSliderHandleType: Int, RawRepresentable {
+public enum MSCircularSliderHandleType: Int, RawRepresentable {
     case smallCircle = 0,
     mediumCircle,
     largeCircle,
@@ -15,7 +15,7 @@ enum MSCircularSliderHandleType: Int, RawRepresentable {
 }
 
 @IBDesignable
-class MSCircularSliderHandle: CALayer {
+public class MSCircularSliderHandle: CALayer {
     
     //================================================================================
     // MEMBERS
