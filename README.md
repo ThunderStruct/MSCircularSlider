@@ -1,5 +1,5 @@
 # MSCircularSlider
-[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.0.0-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.1.0-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
 
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
@@ -48,7 +48,7 @@ Most members are `IBInspectable`, providing multiple ways of complete initializa
 ##### Interface Builder Initialization
 
 <p>
-  <img src="https://i.imgur.com/F4ZrBze.png">
+  <img src="https://i.imgur.com/iLp7ifC.png">
 </p>
 
 ##### Programmatic Initialization
