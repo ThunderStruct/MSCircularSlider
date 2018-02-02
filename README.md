@@ -162,6 +162,7 @@ Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircula
    - Glossy
    - Matte
    - Pearlescent
+- [ ] Add a `setValue` method with an optional animation parameter
 
 ## License
 
