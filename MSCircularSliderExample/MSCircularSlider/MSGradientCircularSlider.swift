@@ -11,12 +11,15 @@ import UIKit
 public class MSGradientCircularSlider: MSCircularSlider {
     
     // Gradient colors array
+
+    /** The slider's gradient colors array - Note: use the provided methods to apply changes */
     public var gradientColors: [UIColor] = [.lightGray, .blue, .darkGray] {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The slider's current angle */
     override public var angle: CGFloat {
         didSet {
             let anglePercentage = Double(angle) * 100.0 / Double(maximumAngle)
@@ -30,6 +33,7 @@ public class MSGradientCircularSlider: MSCircularSlider {
     // SETTER METHODS
     //================================================================================
     
+    /** Appends a new color to the `gradientColors` array */
     public func addColor(_ color: UIColor) {
         gradientColors.append(color)
         
@@ -38,6 +42,7 @@ public class MSGradientCircularSlider: MSCircularSlider {
         setNeedsDisplay()
     }
     
+    /** Replaces the color at a certain index with the given new color */
     public func changeColor(at index: Int, newColor: UIColor) {
         assert(gradientColors.count > index && index >= 0, "gradient color index out of bounds")
         gradientColors[index] = newColor
@@ -47,6 +52,7 @@ public class MSGradientCircularSlider: MSCircularSlider {
         setNeedsDisplay()
     }
     
+    /** Removes a gradientColors at a given index */
     public func removeColor(at index: Int) {
         assert(gradientColors.count > index && index >= 0, "gradient color index out of bounds")
         assert(gradientColors.count <= 2, "gradient colors array must contain at least 2 elements")
@@ -61,6 +67,7 @@ public class MSGradientCircularSlider: MSCircularSlider {
     // SUPPORT METHODS
     //================================================================================
     
+    /** Calculates the color blend at a certain filled percentage */
     private func blend(from: UIColor, to: UIColor, percentage: Double) -> UIColor {
         var fromR: CGFloat = 0.0
         var fromG: CGFloat = 0.0
@@ -87,6 +94,7 @@ public class MSGradientCircularSlider: MSCircularSlider {
         return UIColor(red: rR, green: rG, blue: rB, alpha: rA)
     }
     
+    /** Calculates the color for the current angle */
     private func colorFor(percentage: Double) -> UIColor {
         let colorPercentageInterval = 100.0 / Double(gradientColors.count - 1)
         

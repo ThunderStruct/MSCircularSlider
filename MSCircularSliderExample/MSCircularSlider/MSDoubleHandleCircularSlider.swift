@@ -27,6 +27,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     //================================================================================
     
     // DELEGATE
+    /** A middle ground for casting the delegate */
     private weak var castDelegate: MSDoubleHandleCircularSliderDelegate? {
         get {
             return delegate as? MSDoubleHandleCircularSliderDelegate
@@ -38,6 +39,27 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     
     
     // DOUBLE HANDLE SLIDER PROPERTIES
+    
+    /** The slider's second handle's current value - *default: `valueFrom(angle: 60.0)`* */
+    public var secondCurrentValue: Double {
+        set {
+            let val = min(max(minimumValue, newValue), maximumValue)
+            secondHandle.currentValue = val
+            
+            // Update second angle
+            secondAngle = angleFrom(value: val)
+            
+            castDelegate?.circularSlider(self, valueChangedTo: currentValue, secondValue: val, isFirstHandle: nil, fromUser: false)
+            
+            sendActions(for: UIControlEvents.valueChanged)
+            setNeedsDisplay()
+        }
+        get {
+            return valueFrom(angle: secondHandle.angle)
+        }
+    }
+    
+    /** The minimum distance between the two handles - *default: 10* */
     public var minimumHandlesDistance: CGFloat = 10 {    // distance between handles
         didSet {
             let maxValue = CGFloat.pi * calculatedRadius * maximumAngle / 360.0
@@ -54,71 +76,79 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     // SECOND HANDLE'S PROPERTIES
+    
+    /** The slider's second handle layer */
     let secondHandle = MSCircularSliderHandle()
     
-    public var secondCurrentValue: Double {      // second handle's value
+    /** The second handle's current angle from north - *default: 60.0 * */
+    public var secondAngle: CGFloat {
         set {
-            let val = min(max(minimumValue, newValue), maximumValue)
-            
-            // Update second angle
-            secondAngle = angleFrom(value: val)
-            
-            castDelegate?.circularSlider(self, valueChangedTo: currentValue, secondValue: val, isFirstHandle: nil, fromUser: false)
-            
-            sendActions(for: UIControlEvents.valueChanged)
+            secondHandle.angle = max(0, newValue).truncatingRemainder(dividingBy: maximumAngle + 1)
         }
         get {
-            return valueFrom(angle: secondAngle)
+            return secondHandle.angle
+        }
+    }
+    /** The second handle's color - *default: .darkGray* */
+    public var secondHandleColor: UIColor {
+        set {
+            secondHandle.color = newValue
+        }
+        get {
+            return secondHandle.color
         }
     }
     
-    public var secondAngle: CGFloat = 60 {
-        didSet {
-            secondAngle = max(0.0, secondAngle).truncatingRemainder(dividingBy: maximumAngle + 1)
+    /** The second handle's image (overrides the handle color and type) - *default: nil* */
+    public var secondHandleImage: UIImage? {
+        set {
+            secondHandle.image = newValue
+        }
+        get {
+            return secondHandle.image
         }
     }
     
-    public var secondHandleColor: UIColor = .darkGray {
-        didSet {
-            setNeedsDisplay()
+    /** The second handle's type - *default: .largeCircle* */
+    public var secondHandleType: MSCircularSliderHandleType {
+        set {
+            secondHandle.handleType = newValue
+        }
+        get {
+            return secondHandle.handleType
         }
     }
     
-    public var secondHandleType: MSCircularSliderHandleType = .largeCircle {
-        didSet {
-            setNeedsUpdateConstraints()
-            setNeedsDisplay()
+    /** The second handle's enlargement point from default size - *default: 10* */
+    public var secondHandleEnlargementPoints: Int {
+        set {
+            secondHandle.enlargementPoints = newValue
+        }
+        get {
+            return secondHandle.enlargementPoints
         }
     }
     
-    public var secondHandleEnlargementPoints: Int = 10 {
-        didSet {
-            setNeedsUpdateConstraints()
-            setNeedsDisplay()
+    /** Specifies whether the second handle should highlight upon touchdown or not - *default: true* */
+    public var secondHandleHighlightable: Bool {
+        set {
+            secondHandle.isHighlightable = newValue
         }
-    }
-    
-    public var secondHandleHighlightable: Bool = true {
-        didSet {
-            secondHandle.isHighlightable = secondHandleHighlightable
-            setNeedsDisplay()
+        get {
+            return secondHandle.isHighlightable
         }
     }
     
     // CALCULATED MEMBERS
-    internal var secondHandleDiameter: CGFloat {
-        switch handleType {
-        case .smallCircle:
-            return CGFloat(Double(lineWidth) / 2.0)
-        case .mediumCircle:
-            return CGFloat(lineWidth)
-        case .largeCircle, .doubleCircle:
-            return CGFloat(lineWidth + secondHandleEnlargementPoints)
-            
-        }
+    
+    /** The calculated second handle's diameter based on its type */
+    public var secondHandleDiameter: CGFloat {
+        return secondHandle.diameter
     }
     
     // OVERRIDDEN MEMBERS
+    
+    /** The slider's circular angle - *default: 360.0 (full circle)* */
     override public var maximumAngle: CGFloat {
         didSet {
             // to account for dynamic maximumAngle changes
@@ -150,13 +180,29 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     // VIRTUAL METHODS
     //================================================================================
     
+    override func initHandle() {
+        super.initHandle()
+        secondHandle.delegate = self
+        secondHandle.center = {
+            return self.pointOnCircleAt(angle: self.secondAngle)
+        }
+        secondHandle.setAngle(60)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override public func draw(_ rect: CGRect) {
         super.draw(rect)
         let ctx = UIGraphicsGetCurrentContext()
         
         // Draw the second handle
-        let handleCenter = super.pointOnCircleAt(angle: secondAngle)
-        secondHandle.frame = self.drawSecondHandle(ctx: ctx!, atPoint: handleCenter, handle: secondHandle)
+        secondHandle.draw(in: ctx!)
     }
     
     override func drawLine(ctx: CGContext) {
@@ -172,18 +218,17 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     override public func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         
-        let handleCenter = pointOnCircleAt(angle: angle)
-        let secondHandleCenter = pointOnCircleAt(angle: secondAngle)
-        if pointInsideHandle(location, handleCenter: handleCenter) {
+        
+        if handle.contains(location) {
             handle.isPressed = true
         }
-        if pointInsideHandle(location, handleCenter: secondHandleCenter) {
+        if secondHandle.contains(location) {
             secondHandle.isPressed = true
         }
         
         if handle.isPressed && secondHandle.isPressed {
             // determine closer handle
-            if (hypotf(Float(handleCenter.x - location.x), Float(handleCenter.y - location.y)) < hypotf(Float(secondHandleCenter.x - location.x), Float(secondHandleCenter.y - location.y))) {
+            if (hypotf(Float(handle.center().x - location.x), Float(handle.center().y - location.y)) < hypotf(Float(secondHandle.center().x - location.x), Float(secondHandle.center().y - location.y))) {
                 // first handle is closer
                 secondHandle.isPressed = false
             }
@@ -228,48 +273,14 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         
         setNeedsDisplay()
         
-        // TODO:
         // Snap To Labels/Markings future feature
-    }
-    
-    //================================================================================
-    // DRAWING METHODS
-    //================================================================================
-    
-    internal func drawSecondHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
-        // Comment out the call to the super class and customize the second handle here
-        // Must set calculatedColor for secondHandle in this case to set the handle's "highlight" if needed
-        // TODO: add separate secondHandleDiameter, secondHandleColor, and secondHandleType properties
-        
-        ctx.saveGState()
-        var frame: CGRect!
-        
-        // Highlight == 0.9 alpha
-        let calculatedHandleColor = handle.isHighlightable && handle.isPressed ? secondHandleColor.withAlphaComponent(0.9) : secondHandleColor
-        
-        // Handle color calculation
-        if secondHandleType == .doubleCircle {
-            calculatedHandleColor.set()
-            drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.25 * secondHandleDiameter)
-            
-            calculatedHandleColor.withAlphaComponent(0.7).set()
-            
-            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
-        }
-        else {
-            calculatedHandleColor.set()
-            
-            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * secondHandleDiameter)
-        }
-        
-        
-        ctx.saveGState()
-        return frame
     }
     
     //================================================================================
     // HANDLE-MOVING METHODS
     //================================================================================
+    
+    /** Calculates the current distance between the two handles */
     private func distanceBetweenHandles(_ firstHandle: CGRect, _ secondHandle: CGRect) -> CGFloat {
         let vector = CGPoint(x: firstHandle.minX - secondHandle.minX, y: firstHandle.minY - secondHandle.minY)
         let straightDistance = CGFloat(sqrt(square(Double(vector.x)) + square(Double(vector.y))))
@@ -278,9 +289,10 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         return circularDistance
     }
     
+    /** Moves the first handle to a given angle */
     private func moveFirstHandleTo(_ newAngle: CGFloat) {
         let center = pointOnCircleAt(angle: newAngle)
-        let radius = handleDiameter / 2.0
+        let radius = handle.diameter / 2.0
         let newHandleFrame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
         
         if !fullCircle && newAngle > secondAngle {
@@ -288,7 +300,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
             return
         }
         
-        if distanceBetweenHandles(newHandleFrame, secondHandle.frame) < minimumHandlesDistance + handleDiameter {
+        if distanceBetweenHandles(newHandleFrame, secondHandle.frame) < minimumHandlesDistance + secondHandle.diameter {
             // will cross the minimumHandlesDistance - no changes
             return
         }
@@ -297,17 +309,18 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         setNeedsDisplay()
     }
     
+    /** Moves the second handle to a given angle */
     private func moveSecondHandleTo(_ newAngle: CGFloat) {
         let center = pointOnCircleAt(angle: newAngle)
-        let radius = handleDiameter / 2.0
+        let radius = secondHandle.diameter / 2.0
         let newHandleFrame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
         
-        if !fullCircle && newAngle > maximumAngle {
+        if !fullCircle && (newAngle > maximumAngle || newAngle < angle) {
             // will cross over the open part of the arc
             return
         }
         
-        if distanceBetweenHandles(newHandleFrame, handle.frame) < minimumHandlesDistance + handleDiameter {
+        if distanceBetweenHandles(newHandleFrame, handle.frame) < minimumHandlesDistance + secondHandle.diameter {
             // will cross the minimumHandlesDistance - no changes
             return
         }

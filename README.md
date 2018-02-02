@@ -1,5 +1,5 @@
 # MSCircularSlider
-[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.1.1-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.0-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
 
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
@@ -82,6 +82,7 @@ view.addSubview(slider!)
     - note: the slider adds an inverted rotational transformation to all of its subviews to cancel any applied rotation
   - `handleType`: indicates the type of the handle - default .largeCircle
   - `handleColor`: the handle's color - default .darkGrey
+  - `hanldeImage`: the handle's image - default nil
   - `handleEnlargementPoints`: the number of points the handle is larger than lineWidth - default 10
     - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `handleHighlightable`: indicates whether the handle should _highlight_ (becomes semitransparent) while being pressed - default true
@@ -112,6 +113,7 @@ Inherits from MSCircularSlider with the following differences
   - `secondCurrentValue`: the current value of the second handle - default calculated from 60° angle
   - `secondHandleType`: indicates the type of the second handle - default .largeCircle
   - `secondHandleColor`: the second handle's color - default .darkGrey
+  - `secondHandleImage`: the second handle's image - default nil
   - `secondHandleEnlargementPoints`: the number of points the second handle is larger than lineWidth - default 10
   - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `secondHandleHighlightable`: indicates whether the second handle should _highlight_ (becomes semitransparent) while being pressed - default true

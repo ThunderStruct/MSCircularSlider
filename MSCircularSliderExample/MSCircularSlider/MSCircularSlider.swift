@@ -34,7 +34,11 @@ public class MSCircularSlider: UIControl {
     //================================================================================
     
     // DELEGATE
+    
+    /** The slider's main delegate */
     weak public var delegate: MSCircularSliderProtocol? = nil
+    
+    /** A middle ground for casting the delegate */
     private weak var castDelegate: MSCircularSliderDelegate? {
         get {
             return delegate as? MSCircularSliderDelegate
@@ -45,34 +49,39 @@ public class MSCircularSlider: UIControl {
     }
     
     // VALUE/ANGLE MEMBERS
+    
+    /** The slider's least possible value - *default: 0.0* */
     public var minimumValue: Double = 0.0 {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The slider's value at maximumAngle - *default: 100.0* */
     public var maximumValue: Double = 100.0 {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The handle's current value - *default: minimumValue* */
     public var currentValue: Double {
         set {
             let val = min(max(minimumValue, newValue), maximumValue)
+            handle.currentValue = val
             angle = angleFrom(value: val)
             
             castDelegate?.circularSlider(self, valueChangedTo: val, fromUser: false)
             
             sendActions(for: UIControlEvents.valueChanged)
             
-            
             setNeedsDisplay()
         } get {
-            return valueFrom(angle: angle)
+            return valueFrom(angle: handle.angle)
         }
     }
     
+    /** The slider's circular angle - *default: 360.0 (full circle)* */
     public var maximumAngle: CGFloat = 360.0 {     // Full circle by default
         didSet {
             if maximumAngle > 360.0 {
@@ -90,12 +99,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
-    public var angle: CGFloat = 0 {
-        didSet {
-            angle = max(0, angle).truncatingRemainder(dividingBy: maximumAngle + 1)
-        }
-    }
-    
+    /** The slider layer's rotation - *default: nil / pointing north* */
     public var rotationAngle: CGFloat? = nil {
         didSet {
             setNeedsUpdateConstraints()
@@ -103,6 +107,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** The slider's radius - *default: computed* */
     private var radius: CGFloat = -1.0 {
         didSet {
             setNeedsUpdateConstraints()
@@ -111,6 +116,8 @@ public class MSCircularSlider: UIControl {
     }
     
     // LINE MEMBERS
+    
+    /** The slider's line width - *default: 5*  */
     public var lineWidth: Int = 5 {
         didSet {
             setNeedsUpdateConstraints()
@@ -119,26 +126,28 @@ public class MSCircularSlider: UIControl {
         }
     }
     
-    
+    /** The color of the filled part of the slider - *default: .darkGray* */
     public var filledColor: UIColor = .darkGray {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    
+    /** The color of the unfilled part of the slider - *default: .lightGray* */
     public var unfilledColor: UIColor = .lightGray {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The slider's ending line cap - *default: .round* */
     public var unfilledLineCap: CGLineCap = .round {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The slider's beginning line cap - *default: .round* */
     public var filledLineCap: CGLineCap = .round {
         didSet {
             setNeedsDisplay()
@@ -146,36 +155,80 @@ public class MSCircularSlider: UIControl {
     }
     
     // HANDLE MEMBERS
+    
+    /** The slider's handle layer */
     let handle = MSCircularSliderHandle()
     
-    public var handleColor: UIColor = .darkGray {
-        didSet {
-            setNeedsDisplay()
+    /** The handle's current angle from north - *default: 0.0 * */
+    public var angle: CGFloat {
+        set {
+            handle.angle = max(0, newValue).truncatingRemainder(dividingBy: maximumAngle + 1)
+        }
+        get {
+            return handle.angle
         }
     }
     
-    public var handleType: MSCircularSliderHandleType = .largeCircle {
-        didSet {
-            setNeedsUpdateConstraints()
+    /** The handle's color - *default: .darkGray* */
+    public var handleColor: UIColor {
+        set {
+            handle.color = newValue
             setNeedsDisplay()
+        }
+        get {
+            return handle.color
         }
     }
     
-    public var handleEnlargementPoints: Int = 10 {
-        didSet {
-            setNeedsUpdateConstraints()
+    /** The handle's type - *default: .largeCircle* */
+    public var handleType: MSCircularSliderHandleType {
+        set {
+            handle.handleType = newValue
             setNeedsDisplay()
+        }
+        get {
+            return handle.handleType
         }
     }
     
-    public var handleHighlightable: Bool = true {
-        didSet {
-            handle.isHighlightable = handleHighlightable
-            setNeedsDisplay()
+    /** The handle's enlargement point from default size - *default: 10* */
+    public var handleEnlargementPoints: Int {
+        set {
+            handle.enlargementPoints = newValue
         }
+        get {
+            return handle.enlargementPoints
+        }
+    }
+    
+    /** Specifies whether the handle should highlight upon touchdown or not - *default: true* */
+    public var handleHighlightable: Bool {
+        set {
+            handle.isHighlightable = newValue
+        }
+        get {
+            return handle.isHighlightable
+        }
+    }
+    
+    /** The handle's image (overrides the handle color and type) - *default: nil* */
+    public var handleImage: UIImage? {
+        set {
+            handle.image = newValue
+        }
+        get {
+            return handle.image
+        }
+    }
+    
+    /** The calculated handle's diameter based on its type */
+    public var handleDiameter: CGFloat {
+        return handle.diameter
     }
     
     // LABEL MEMBERS
+    
+    /** The slider's labels array (laid down counter-clockwise) */
     public var labels: [String] = [] {         // All labels are evenly spaced
         didSet {
             setNeedsUpdateConstraints()
@@ -183,6 +236,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** Specifies whether or not the handle should snap to the nearest label upon touch release - *default: false* */
     public var snapToLabels: Bool = false {        // The 'snap' occurs on touchUp
         didSet {
             setNeedsUpdateConstraints()
@@ -190,18 +244,21 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** The labels' font - *default: .systemFont(ofSize: 12.0)* */
     public var labelFont: UIFont = .systemFont(ofSize: 12.0) {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The labels' color - *default: .black* */
     public var labelColor: UIColor = .black {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The labels' offset from center (negative values push inwards) - *default: 0* */
     public var labelOffset: CGFloat = 0 {    // Negative values move the labels closer to the center
         didSet {
             setNeedsUpdateConstraints()
@@ -209,11 +266,14 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** The labels' distance from center */
     private var labelInwardsDistance: CGFloat {
         return 0.1 * -(radius) - 0.5 * CGFloat(lineWidth) - 0.5 * labelFont.pointSize
     }
     
     // MARKER MEMBERS
+    
+    /** The number of markers to be displayed - *default: 0* */
     public var markerCount: Int = 0 {      // All markers are evenly spaced
         didSet {
             markerCount = max(markerCount, 0)
@@ -222,12 +282,14 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** The markers' color - *default: .darkGray* */
     public var markerColor: UIColor = .darkGray {
         didSet {
             setNeedsDisplay()
         }
     }
     
+    /** The markers' bezier path (takes precendence over `markerImage`)- *default: nil / circle shape will be drawn* */
     public var markerPath: UIBezierPath? = nil {   // Takes precedence over markerImage
         didSet {
             setNeedsUpdateConstraints()
@@ -235,6 +297,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** The markers' image - *default: nil* */
     public var markerImage: UIImage? = nil {       // Mutually-exclusive with markerPath
         didSet {
             setNeedsUpdateConstraints()
@@ -242,6 +305,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** Specifies whether or not the handle should snap to the nearest marker upon touch release - *default: false* */
     public var snapToMarkers: Bool = false {        // The 'snap' occurs on touchUp
         didSet {
             setNeedsUpdateConstraints()
@@ -250,6 +314,8 @@ public class MSCircularSlider: UIControl {
     }
     
     // CALCULATED MEMBERS
+    
+    /** The slider's calculated radius based on the components' sizes */
     public var calculatedRadius: CGFloat {
         if (radius == -1.0) {
             let minimumSize = min(bounds.size.height, bounds.size.width)
@@ -260,30 +326,21 @@ public class MSCircularSlider: UIControl {
         return radius
     }
     
+    /** The slider's center point */
     internal var centerPoint: CGPoint {
         return CGPoint(x: bounds.size.width * 0.5, y: bounds.size.height * 0.5)
     }
     
+    /** A read-only property that indicates whether or not the slider is a full circle */
     public var fullCircle: Bool {
         return maximumAngle == 360.0
-    }
-    
-    internal var handleDiameter: CGFloat {
-        switch handleType {
-        case .smallCircle:
-            return CGFloat(Double(lineWidth) / 2.0)
-        case .mediumCircle:
-            return CGFloat(lineWidth)
-        case .largeCircle, .doubleCircle:
-            return CGFloat(lineWidth + handleEnlargementPoints)
-            
-        }
     }
     
     //================================================================================
     // SETTER METHODS
     //================================================================================
     
+    /** Appends a new label to the `labels` array */
     public func addLabel(_ string: String) {
         labels.append(string)
         
@@ -291,6 +348,7 @@ public class MSCircularSlider: UIControl {
         setNeedsDisplay()
     }
     
+    /** Replaces the label at a certain index with the given string */
     public func changeLabel(at index: Int, string: String) {
         assert(labels.count > index && index >= 0, "label index out of bounds")
         labels[index] = string
@@ -299,6 +357,7 @@ public class MSCircularSlider: UIControl {
         setNeedsDisplay()
     }
     
+    /** Removes a label at a given index */
     public func removeLabel(at index: Int) {
         assert(labels.count > index && index >= 0, "label index out of bounds")
         labels.remove(at: index)
@@ -308,17 +367,27 @@ public class MSCircularSlider: UIControl {
     }
     
     //================================================================================
-    // VIRTUAL METHODS
+    // INIT AND VIRTUAL METHODS
     //================================================================================
+    
+    func initHandle() {
+        handle.delegate = self
+        handle.center = {
+            return self.pointOnCircleAt(angle: self.angle)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
+        initHandle()
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = .clear
+        initHandle()
     }
     
     override public var intrinsicContentSize: CGSize {
@@ -341,8 +410,7 @@ public class MSCircularSlider: UIControl {
         drawMarkings(ctx: ctx!)
         
         // Draw handle
-        let handleCenter = pointOnCircleAt(angle: angle)
-        handle.frame = drawHandle(ctx: ctx!, atPoint: handleCenter, handle: handle)
+        handle.draw(in: ctx!)
         
         // Draw labels
         drawLabels(ctx: ctx!)
@@ -360,7 +428,7 @@ public class MSCircularSlider: UIControl {
             return false
         }
         
-        if pointInsideHandle(point, handleCenter: pointOnCircleAt(angle: angle)) {
+        if handle.contains(point) {
             
             return true
         }
@@ -372,7 +440,7 @@ public class MSCircularSlider: UIControl {
     override public func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         
-        if pointInsideHandle(location, handleCenter: pointOnCircleAt(angle: angle)) {
+        if handle.contains(location) {
             handle.isPressed = true
             castDelegate?.circularSlider(self, startedTrackingWith: currentValue)
             setNeedsDisplay()
@@ -406,10 +474,12 @@ public class MSCircularSlider: UIControl {
         setNeedsDisplay()
     }
     
+    
     //================================================================================
     // DRAWING METHODS
     //================================================================================
     
+    /** Draws a circular line in the given context */
     internal func drawLine(ctx: CGContext) {
         unfilledColor.set()
         // Draw unfilled circle
@@ -420,33 +490,7 @@ public class MSCircularSlider: UIControl {
         drawArc(ctx: ctx, center: centerPoint, radius: calculatedRadius, lineWidth: CGFloat(lineWidth), fromAngle: 0, toAngle: CGFloat(angle), lineCap: filledLineCap)
     }
     
-    internal func drawHandle(ctx: CGContext, atPoint handleCenter: CGPoint, handle: MSCircularSliderHandle) -> CGRect {
-        ctx.saveGState()
-        var frame: CGRect!
-        
-        // Highlight == 0.9 alpha
-        let calculatedHandleColor = handle.isHighlightable && handle.isPressed ? handleColor.withAlphaComponent(0.9) : handleColor
-        
-        // Handle color calculation
-        if handleType == .doubleCircle {
-            calculatedHandleColor.set()
-            drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.25 * handleDiameter)
-            
-            calculatedHandleColor.withAlphaComponent(0.7).set()
-            
-            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * handleDiameter)
-        }
-        else {
-            calculatedHandleColor.set()
-            
-            frame = drawFilledCircle(ctx: ctx, center: handleCenter, radius: 0.5 * handleDiameter)
-        }
-        
-        
-        ctx.saveGState()
-        return frame
-    }
-    
+    /** Draws the slider's labels (if any exist) in the given context */
     private func drawLabels(ctx: CGContext) {
         if labels.count > 0 {
             let attributes = [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelColor] as [NSAttributedStringKey : Any]
@@ -472,6 +516,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** Draws the slider's markers (if any exist) in the given context */
     private func drawMarkings(ctx: CGContext) {
         for i in 0 ..< markerCount {
             let markFrame = frameForMarkingAt(i)
@@ -501,6 +546,7 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** Draws a filled circle in context */
     @discardableResult
     internal func drawFilledCircle(ctx: CGContext, center: CGPoint, radius: CGFloat) -> CGRect {
         let frame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
@@ -508,11 +554,13 @@ public class MSCircularSlider: UIControl {
         return frame
     }
     
+    /** Draws an unfilled circle in context */
     internal func drawUnfilledCircle(ctx: CGContext, center: CGPoint, radius: CGFloat, lineWidth: CGFloat, maximumAngle: CGFloat, lineCap: CGLineCap) {
         
         drawArc(ctx: ctx, center: center, radius: radius, lineWidth: lineWidth, fromAngle: 0, toAngle: maximumAngle, lineCap: lineCap)
     }
     
+    /** Draws an arc in context */
     internal func drawArc(ctx: CGContext, center: CGPoint, radius: CGFloat, lineWidth: CGFloat, fromAngle: CGFloat, toAngle: CGFloat, lineCap: CGLineCap) {
         let cartesianFromAngle = toCartesian(toRad(Double(fromAngle)))
         let cartesianToAngle = toCartesian(toRad(Double(toAngle)))
@@ -528,6 +576,7 @@ public class MSCircularSlider: UIControl {
     // CALCULATION METHODS
     //================================================================================
     
+    /** Calculates the angle between two points on a circle */
     internal func calculateAngle(from: CGPoint, to: CGPoint) -> CGFloat {
         var vector = CGPoint(x: to.x - from.x, y: to.y - from.y)
         let magnitude = CGFloat(sqrt(square(Double(vector.x)) + square(Double(vector.y))))
@@ -545,6 +594,7 @@ public class MSCircularSlider: UIControl {
         return CGFloat(toDeg(compassRad))
     }
     
+    /** Returns a `CGPoint` on a circle given its radius and an angle */
     private func pointOn(radius: CGFloat, angle: CGFloat) -> CGPoint {
         var result = CGPoint()
         
@@ -555,11 +605,13 @@ public class MSCircularSlider: UIControl {
         return result
     }
     
+    /** Returns a `CGPoint` on the slider's circle given an angle */
     internal func pointOnCircleAt(angle: CGFloat) -> CGPoint {
         let offset = pointOn(radius: calculatedRadius, angle: angle)
         return CGPoint(x: centerPoint.x + offset.x, y: centerPoint.y + offset.y)
     }
     
+    /** Calculates the bounds of a marker's frame given its index */
     private func frameForMarkingAt(_ index: Int) -> CGRect {
         var percentageAlongCircle: CGFloat!
         
@@ -583,6 +635,7 @@ public class MSCircularSlider: UIControl {
                       height: markSize.height)
     }
     
+    /** Calculates the bounds of a label's frame given its index */
     private func frameForLabelAt(_ index: Int) -> CGRect {
         let label = labels[index]
         var percentageAlongCircle: CGFloat!
@@ -603,6 +656,7 @@ public class MSCircularSlider: UIControl {
                       height: labelSize.height)
     }
     
+    /** Calculates the labels' offset so it would not intersect with the slider's line */
     private func offsetForLabelAt(index: Int, withSize labelSize: CGSize) -> CGPoint {
         let percentageAlongCircle = fullCircle ? ((100.0 / CGFloat(labels.count)) * CGFloat(index)) / 100.0 : ((100.0 / CGFloat(labels.count - 1)) * CGFloat(index)) / 100.0
         let labelDegrees = percentageAlongCircle * maximumAngle
@@ -613,6 +667,7 @@ public class MSCircularSlider: UIControl {
         return CGPoint(x: -labelSize.width * 0.5 + inwardOffset.x, y: -labelSize.height * 0.5 + inwardOffset.y)
     }
     
+    /** Calculates the angle of a certain arc */
     private func degreesFor(arcLength: CGFloat, onCircleWithRadius radius: CGFloat, withMaximumAngle degrees: CGFloat) -> CGFloat {
         let totalCircumference = CGFloat(2 * Double.pi) * radius
         
@@ -621,6 +676,7 @@ public class MSCircularSlider: UIControl {
         return degrees * arcRatioToCircumference
     }
     
+    /** Checks whether or not a point lies within the slider's circle */
     private func pointInsideCircle(_ point: CGPoint) -> Bool {
         let p1 = centerPoint
         let p2 = point
@@ -630,16 +686,34 @@ public class MSCircularSlider: UIControl {
         return distance < calculatedRadius + CGFloat(lineWidth) * 0.5
     }
     
-    internal func pointInsideHandle(_ point: CGPoint, handleCenter: CGPoint) -> Bool {
-        let handleRadius = max(handleDiameter, 44.0) * 0.5  // 44 points as per Apple's design guidelines
-        
-        return point.x >= handleCenter.x - handleRadius && point.x <= handleCenter.x + handleRadius && point.y >= handleCenter.y - handleRadius && point.y <= handleCenter.y + handleRadius
-    }
+
     
     //================================================================================
     // CONTROL METHODS
     //================================================================================
     
+    /** Sets the `currentValue` with optional animation
+    public func setValue(_ newValue: Double, withAnimation animated: Bool = false, animationDuration duration: Double = 0.75, completionBlock: (() -> Void)? = nil) {
+        if !animated {
+            currentValue = newValue
+            return
+        }
+        
+        // Animate
+        let newVal = min(max(minimumValue, newValue), maximumValue)
+        
+        let anim = CABasicAnimation(keyPath: "currentValue")
+        anim.duration = duration
+        anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        anim.fromValue = currentValue
+        anim.toValue = newVal
+        anim.isRemovedOnCompletion = true
+        
+        handle.add(anim, forKey: "currentValue")
+        handle.currentValue = newVal
+    }*/
+    
+    /** Moves the handle to `newAngle` */
     private func moveHandle(newAngle: CGFloat) {
         if newAngle > maximumAngle {    // for incomplete circles
             if newAngle > maximumAngle + (360 - maximumAngle) / 2.0 {
@@ -657,9 +731,9 @@ public class MSCircularSlider: UIControl {
         setNeedsDisplay()
     }
     
+    /** Snaps the handle to the nearest label/marker depending on the settings */
     private func snapHandle() {
         // Snapping calculation
-        // TODO: eliminate mutual-exclusion - use same minDist for both labels and markings to snap to nearest label or marking
         var fixedAngle = 0.0 as CGFloat
         
         if angle < 0 {
@@ -709,39 +783,48 @@ public class MSCircularSlider: UIControl {
     // SUPPORT METHODS
     //================================================================================
     
+    /** Calculates the angle from north given a value */
     internal func angleFrom(value: Double) -> CGFloat {
         return (CGFloat(value) * maximumAngle) / CGFloat(maximumValue - minimumValue)
     }
     
+    /** Calculates the value given an angle from north */
     internal func valueFrom(angle: CGFloat) -> Double {
         return (maximumValue - minimumValue) * Double(angle) / Double(maximumAngle)
     }
     
+    /** Converts degrees to radians */
     private func toRad(_ degrees: Double) -> Double {
         return ((Double.pi * degrees) / 180.0)
     }
     
+    /** Converts radians to degrees */
     private func toDeg(_ radians: Double) -> Double {
         return ((180.0 * radians) / Double.pi)
     }
     
+    /** Squares a given Double value */
     internal func square(_ value: Double) -> Double {
         return value * value
     }
     
+    /** Converts cartesian radians to compass radians */
     private func toCompass(_ cartesianRad: Double) -> Double {
         return cartesianRad + (Double.pi / 2)
     }
     
+    /** Converts compass radians to cartesian radians */
     private func toCartesian(_ compassRad: Double) -> Double {
         return compassRad - (Double.pi / 2)
     }
     
+    /** Calculates the size of a label given the string and its font */
     private func sizeOf(string: String, withFont font: UIFont) -> CGSize {
         let attributes = [NSAttributedStringKey.font: font]
         return NSAttributedString(string: string, attributes: attributes).size()
     }
     
+    /** Calculates the entire layer's rotation (used to cancel out any rotation affecting custom subviews) */
     public func getRotationalTransform() -> CGAffineTransform {
         if fullCircle {
             // No rotation required
@@ -759,8 +842,6 @@ public class MSCircularSlider: UIControl {
             return transform
         }
     }
-    
-    
     
 }
 

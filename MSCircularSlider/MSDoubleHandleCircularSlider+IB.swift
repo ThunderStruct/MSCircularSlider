@@ -56,6 +56,15 @@ extension MSDoubleHandleCircularSlider {
         }
     }
     
+    @IBInspectable public var _secondHandleImage: UIImage {
+        get {
+            return secondHandleImage ?? UIImage()
+        }
+        set {
+            secondHandleImage = newValue
+        }
+    }
+    
     @IBInspectable public var _secondHandleEnlargementPoints: Int {
         get {
             return secondHandleEnlargementPoints

@@ -21,6 +21,8 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
     // Members
     var currentColorPickTag = 0
     var colorPicker: ColorPickerView?
+    var animationTimer: Timer?
+    var animationReversed = false
     
     // Actions
     @IBAction func handleTypeValueChanged(_ sender: UIStepper) {
@@ -70,6 +72,12 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         descriptionLbl.text = getDescription()
         
         view.addSubview(colorPicker!)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Slider animation
+        animateSlider()
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,5 +133,24 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         }
         
         colorPicker?.isHidden = true
+    }
+    
+    func animateSlider() {
+        animationTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateSliderValue), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateSliderValue() {
+        slider.currentValue += animationReversed ? -1.0 : 1.0
+        
+        if slider.currentValue >= slider.maximumValue {
+            animationTimer?.invalidate()
+            // Reverse animation
+            animationReversed = true
+            animationTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateSliderValue), userInfo: nil, repeats: true)
+        }
+        else if slider.currentValue <= slider.minimumValue && animationReversed {
+            // Animation ended
+            animationTimer?.invalidate()
+        }
     }
 }

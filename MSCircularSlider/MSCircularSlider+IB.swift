@@ -113,6 +113,15 @@ extension MSCircularSlider {
             handleColor = newValue
         }
     }
+
+    @IBInspectable public var _handleImage: UIImage {
+        get {
+            return handleImage ?? UIImage()
+        }
+        set {
+            handleImage = newValue
+        }
+    }
     
     @IBInspectable public var _handleEnlargementPoints: Int {
         get {
@@ -225,7 +234,6 @@ extension MSCircularSlider {
     }
     
 }
-
 
 
 

@@ -65,6 +65,7 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
         minDistSlider.maximumValue = Float(CGFloat.pi * slider.calculatedRadius * slider.maximumAngle / 360.0)
         
         descriptionLbl.text = getDescription()
+    
     }
 
     override func didReceiveMemoryWarning() {

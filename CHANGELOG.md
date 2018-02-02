@@ -3,10 +3,23 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ------------------------
 
+## 1.2.0 - 02-02-2018
+#### Added
+  - A handle image property to assign a `UIImage` to the handle(s)
+  - Documentation for all exposed methods and members
+  
+#### Changed
+  - Major `MSCircularSliderHandle` structural enhancement
+
+#### Fixed
+  - An issue that caused the `.doubleCircle` handle type to not highlight upon touch
+
+
 ## 1.1.1 - 28-12-2017
 #### Fixed
   - Access control levels causing IB to crash
   - Podspec file configuration
+
 
 ## 1.1.0 - 27-12-2017
 #### Added
@@ -29,3 +42,4 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ## 0.X.X
 All prerelease changes are not logged
+
