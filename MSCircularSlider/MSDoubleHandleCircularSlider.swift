@@ -186,7 +186,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         secondHandle.center = {
             return self.pointOnCircleAt(angle: self.secondAngle)
         }
-        secondHandle.setAngle(60)
+        secondHandle.angle = 60
     }
     
     override init(frame: CGRect) {
