@@ -3,6 +3,10 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ------------------------
 
+## 1.2.1 - 09-02-2018
+#### Fixed
+  - A setter conflict occuring on earlier Swift versions
+
 ## 1.2.0 - 02-02-2018
 #### Added
   - A handle image property to assign a `UIImage` to the handle(s)

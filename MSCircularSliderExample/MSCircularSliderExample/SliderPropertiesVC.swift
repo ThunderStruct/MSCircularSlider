@@ -72,7 +72,6 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         descriptionLbl.text = getDescription()
         
         view.addSubview(colorPicker!)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

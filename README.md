@@ -1,5 +1,5 @@
 # MSCircularSlider
-[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.0-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.1-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
 
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 

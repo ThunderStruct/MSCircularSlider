@@ -94,9 +94,6 @@ public class MSCircularSliderHandle: CALayer {
     // SETTERS AND GETTERS
     //================================================================================
     
-    internal func setAngle(_ newAngle: CGFloat) {
-        angle = max(0, newAngle).truncatingRemainder(dividingBy: slider.maximumAngle + 1)
-    }
     
     //================================================================================
     // VIRTUAL METHODS
