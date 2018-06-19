@@ -83,5 +83,13 @@ extension MSDoubleHandleCircularSlider {
         }
     }
     
+    @IBInspectable public var _secondHandleRotatable: Bool {
+        get {
+            return secondHandleRotatable
+        }
+        set {
+            secondHandleRotatable = newValue
+        }
+    }
     
 }

@@ -32,6 +32,12 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q93-Gh-R8A" secondAttribute="height" multiplier="1:1" id="UJX-Qg-Wc5"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="_handleRotatable" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="_currentValue">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="2" maximumValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="UyW-VL-Knn">
                                 <rect key="frame" x="51.666666666666657" y="356.66666666666669" width="94" height="29"/>
@@ -448,6 +454,10 @@ Rotation Angle: Computed
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WbV-6p-dcC" secondAttribute="height" multiplier="1:1" id="eBU-Oz-h4l"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="_secondHandleHighlightable" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="_secondHandleRotatable" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <stepper opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" maximumValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="mjo-vM-bal">
                                 <rect key="frame" x="51.666666666666657" y="338" width="94" height="29"/>

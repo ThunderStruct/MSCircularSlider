@@ -1,5 +1,5 @@
 # MSCircularSlider
-[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.1-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.2-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
 
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
@@ -86,6 +86,7 @@ view.addSubview(slider!)
   - `handleEnlargementPoints`: the number of points the handle is larger than lineWidth - default 10
     - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `handleHighlightable`: indicates whether the handle should _highlight_ (becomes semitransparent) while being pressed - default true
+  - `handleRotatable`: specifies whether or not the handle should rotate to always point outwards - default false
   - `labels`: the string array that contains all labels to be displayed in an evenly-distributed manner - default [ ]
     - note: all changes to this array will not be applied instantly unless they go through the assignment operator (=). To perform changes, use the provided methods below
   - `labelColor`: the color applied to the displayed labels - default .black
@@ -117,6 +118,7 @@ Inherits from MSCircularSlider with the following differences
   - `secondHandleEnlargementPoints`: the number of points the second handle is larger than lineWidth - default 10
   - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `secondHandleHighlightable`: indicates whether the second handle should _highlight_ (becomes semitransparent) while being pressed - default true
+  - `secondHandleRotatable`: specifies whether or not the second handle should rotate to always point outwards - default false
   - `snapToLabels`: from the super class - overridden and made unavailable
   - `snapToMarkers`: from the super class - overriden and made unavailable
 

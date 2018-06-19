@@ -19,7 +19,6 @@
 		D935DC021F81AE7A00E6B6EE /* MarkersLabelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DC011F81AE7A00E6B6EE /* MarkersLabelsVC.swift */; };
 		D935DC041F81AE8500E6B6EE /* DoubleHandleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DC031F81AE8500E6B6EE /* DoubleHandleVC.swift */; };
 		D935DC061F81AE8E00E6B6EE /* GradientColorsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D935DC051F81AE8E00E6B6EE /* GradientColorsVC.swift */; };
-		D953E8F320251CB7007E60B8 /* Icon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = D953E8F220251CB7007E60B8 /* Icon1024.png */; };
 		D96C34881F813B050041B50C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C34871F813B050041B50C /* AppDelegate.swift */; };
 		D96C348A1F813B050041B50C /* ExamplesMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C34891F813B050041B50C /* ExamplesMenu.swift */; };
 		D96C348D1F813B050041B50C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D96C348B1F813B050041B50C /* Main.storyboard */; };
@@ -40,7 +39,6 @@
 		D935DC011F81AE7A00E6B6EE /* MarkersLabelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkersLabelsVC.swift; sourceTree = "<group>"; };
 		D935DC031F81AE8500E6B6EE /* DoubleHandleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleHandleVC.swift; sourceTree = "<group>"; };
 		D935DC051F81AE8E00E6B6EE /* GradientColorsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientColorsVC.swift; sourceTree = "<group>"; };
-		D953E8F220251CB7007E60B8 /* Icon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon1024.png; path = "../../../../../../../Desktop/Communicate Misc/Icon1024.png"; sourceTree = "<group>"; };
 		D96C34841F813B050041B50C /* MSCircularSliderExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSCircularSliderExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96C34871F813B050041B50C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D96C34891F813B050041B50C /* ExamplesMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesMenu.swift; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 				D935DC031F81AE8500E6B6EE /* DoubleHandleVC.swift */,
 				D935DC051F81AE8E00E6B6EE /* GradientColorsVC.swift */,
 				D9254D221F852E71006F7A81 /* ColorPickerView.swift */,
-				D953E8F220251CB7007E60B8 /* Icon1024.png */,
 				D96C348B1F813B050041B50C /* Main.storyboard */,
 				D96C348E1F813B060041B50C /* Assets.xcassets */,
 				D96C34901F813B060041B50C /* LaunchScreen.storyboard */,
@@ -174,7 +171,6 @@
 				D96C34921F813B060041B50C /* LaunchScreen.storyboard in Resources */,
 				D96C348F1F813B060041B50C /* Assets.xcassets in Resources */,
 				D96C348D1F813B050041B50C /* Main.storyboard in Resources */,
-				D953E8F320251CB7007E60B8 /* Icon1024.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

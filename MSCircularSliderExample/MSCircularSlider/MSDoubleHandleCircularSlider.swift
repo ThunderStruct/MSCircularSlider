@@ -139,6 +139,16 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
+    /** Specifies whether or not the second handle should rotate to always point outwards - *default: false* */
+    public var secondHandleRotatable: Bool {
+        set {
+            secondHandle.isRotatable = newValue
+        }
+        get {
+            return secondHandle.isRotatable
+        }
+    }
+    
     // CALCULATED MEMBERS
     
     /** The calculated second handle's diameter based on its type */

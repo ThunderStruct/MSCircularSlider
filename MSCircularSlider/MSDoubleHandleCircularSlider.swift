@@ -139,6 +139,16 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
+    /** Specifies whether or not the second handle should rotate to always point outwards - *default: false* */
+    public var secondHandleRotatable: Bool {
+        set {
+            secondHandle.isRotatable = newValue
+        }
+        get {
+            return secondHandle.isRotatable
+        }
+    }
+    
     // CALCULATED MEMBERS
     
     /** The calculated second handle's diameter based on its type */
@@ -186,7 +196,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         secondHandle.center = {
             return self.pointOnCircleAt(angle: self.secondAngle)
         }
-        secondHandle.angle = 60
+        secondHandle.angle = CGFloat(max(0, 60.0).truncatingRemainder(dividingBy: Double(maximumAngle + 1)))
     }
     
     override init(frame: CGRect) {

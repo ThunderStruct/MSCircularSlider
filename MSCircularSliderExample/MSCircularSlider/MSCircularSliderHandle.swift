@@ -46,6 +46,13 @@ public class MSCircularSliderHandle: CALayer {
         }
     }
     
+    /** Specifies whether or not the handle should rotate to always point outwards - *default: false* */
+    internal var isRotatable: Bool = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     /** The handle's color - *default: .darkGray* */
     internal var color: UIColor = .darkGray {
         didSet {
@@ -123,8 +130,13 @@ public class MSCircularSliderHandle: CALayer {
                            y: center().y - diameter * 0.5,
                            width: diameter,
                            height: diameter)
-            image?.draw(in: frame)
-            
+            if isRotatable {
+                let rotatedImg = imageRotated(img: image!, byDegrees: angle)
+                rotatedImg.draw(in: frame)
+            }
+            else {
+                image?.draw(in: frame)
+            }
         }
         else if handleType == .doubleCircle {
             calculatedHandleColor.withAlphaComponent(isHighlightable && isPressed ? 0.9 : 1.0).set()
@@ -159,4 +171,41 @@ public class MSCircularSliderHandle: CALayer {
         return point.x >= center().x - handleRadius && point.x <= center().x + handleRadius && point.y >= center().y - handleRadius && point.y <= center().y + handleRadius
     }
     
+    /** Converts degrees to radians */
+    private func toRad(_ degrees: Double) -> Double {
+        return ((Double.pi * degrees) / 180.0)
+    }
+    
+    /** Converts radians to degrees */
+    private func toDeg(_ radians: Double) -> Double {
+        return ((180.0 * radians) / Double.pi)
+    }
+    
+    /** Rotates a given image by the specified degrees */
+    private func imageRotated(img: UIImage, byDegrees degrees: CGFloat) -> UIImage {
+        
+        // calculate the size of the rotated view's containing box for our drawing space
+        let rotatedViewBox = UIView(frame: CGRect(origin: CGPoint.zero, size: img.size))
+        let t = CGAffineTransform(rotationAngle: CGFloat(toRad(Double(degrees))))
+        rotatedViewBox.transform = t
+        let rotatedSize = rotatedViewBox.frame.size
+        
+        // Create the bitmap context
+        UIGraphicsBeginImageContext(rotatedSize)
+        let bitmap = UIGraphicsGetCurrentContext()
+        
+        // Move the origin to the middle of the image so we will rotate and scale around the center.
+        bitmap?.translateBy(x: rotatedSize.width / 2.0, y: rotatedSize.height / 2.0)
+        
+        //   // Rotate the image context
+        bitmap?.rotate(by: CGFloat(toRad(Double(degrees))));
+        
+        // Now, draw the rotated/scaled image into the context
+        bitmap?.draw(img.cgImage!, in: CGRect(x: -img.size.width / 2, y: -img.size.height / 2, width: img.size.width, height: img.size.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
 }

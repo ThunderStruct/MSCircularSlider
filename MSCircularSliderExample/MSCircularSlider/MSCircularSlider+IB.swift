@@ -141,6 +141,15 @@ extension MSCircularSlider {
         }
     }
     
+    @IBInspectable public var _handleRotatable: Bool {
+        get {
+            return handleRotatable
+        }
+        set {
+            handleRotatable = newValue
+        }
+    }
+    
     //================================================================================
     // LABELS PROPERTIES
     //================================================================================

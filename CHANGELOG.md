@@ -3,6 +3,13 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ------------------------
 
+## 1.2.2 - 19-06-2018
+#### Added
+  - An option to rotate the handle image to always point outwards
+
+#### Changed
+  - Minor structural improvement
+
 ## 1.2.1 - 09-02-2018
 #### Fixed
   - A setter conflict occuring on earlier Swift versions

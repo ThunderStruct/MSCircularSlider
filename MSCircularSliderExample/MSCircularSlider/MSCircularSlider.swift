@@ -221,6 +221,16 @@ public class MSCircularSlider: UIControl {
         }
     }
     
+    /** Specifies whether or not the handle should rotate to always point outwards - *default: false* */
+    public var handleRotatable: Bool {
+        set {
+            handle.isRotatable = newValue
+        }
+        get {
+            return handle.isRotatable
+        }
+    }
+    
     /** The calculated handle's diameter based on its type */
     public var handleDiameter: CGFloat {
         return handle.diameter
@@ -416,9 +426,10 @@ public class MSCircularSlider: UIControl {
         drawLabels(ctx: ctx!)
         
         // Rotate slider
-        self.transform = getRotationalTransform()
+        let rotationalTransform = getRotationalTransform()
+        self.transform = rotationalTransform
         for view in subviews {      // cancel rotation on all subviews added by the user
-            view.transform = getRotationalTransform().inverted()
+            view.transform = rotationalTransform.inverted()
         }
         
     }
@@ -832,7 +843,6 @@ public class MSCircularSlider: UIControl {
             return transform
         }
         else {
-            
             if let rotation = self.rotationAngle {
                 return CGAffineTransform.identity.rotated(by: CGFloat(toRad(Double(rotation))))
             }
