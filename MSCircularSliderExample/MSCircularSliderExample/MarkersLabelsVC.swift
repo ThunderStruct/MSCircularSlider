@@ -93,7 +93,7 @@ class MarkersLabelsVC: UIViewController, MSCircularSliderDelegate, ColorPickerDe
         // optional delegate method
     }
     
-    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState) {
+    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
         switch currentColorPickTag {
         case 0:
             labelsColorBtn.setTitleColor(color, for: .normal)

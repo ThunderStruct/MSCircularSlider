@@ -116,7 +116,7 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         // optional delegate method
     }
     
-    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState) {
+    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
         switch currentColorPickTag {
         case 0:
             unfilledColorBtn.setTitleColor(color, for: .normal)
