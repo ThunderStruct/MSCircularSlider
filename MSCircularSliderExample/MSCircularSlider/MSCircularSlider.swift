@@ -73,7 +73,7 @@ public class MSCircularSlider: UIControl {
             
             castDelegate?.circularSlider(self, valueChangedTo: val, fromUser: false)
             
-            sendActions(for: UIControlEvents.valueChanged)
+            sendActions(for: UIControl.Event.valueChanged)
             
             setNeedsDisplay()
         } get {
@@ -469,7 +469,7 @@ public class MSCircularSlider: UIControl {
         
         castDelegate?.circularSlider(self, valueChangedTo: currentValue, fromUser: true)
         
-        sendActions(for: UIControlEvents.valueChanged)
+        sendActions(for: UIControl.Event.valueChanged)
         
         return true
     }
@@ -504,7 +504,7 @@ public class MSCircularSlider: UIControl {
     /** Draws the slider's labels (if any exist) in the given context */
     private func drawLabels(ctx: CGContext) {
         if labels.count > 0 {
-            let attributes = [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelColor] as [NSAttributedStringKey : Any]
+            let attributes = [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelColor] as [NSAttributedString.Key : Any]
             
             for i in 0 ..< labels.count {
                 let label = labels[i] as NSString
@@ -831,7 +831,7 @@ public class MSCircularSlider: UIControl {
     
     /** Calculates the size of a label given the string and its font */
     private func sizeOf(string: String, withFont font: UIFont) -> CGSize {
-        let attributes = [NSAttributedStringKey.font: font]
+        let attributes = [NSAttributedString.Key.font: font]
         return NSAttributedString(string: string, attributes: attributes).size()
     }
     
