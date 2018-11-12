@@ -1,4 +1,4 @@
 language: objective-c
 xcode_project: MSCircularSliderExample/MSCircularSliderExample.xcodeproj
 xcode_scheme: MSCircularSliderExample
-script: xcodebuild clean build -sdk iphonesimulator -project MSCircularSliderExample/MSCircularSliderExample.xcodeproj -scheme MSCircularSliderExample build  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+script: xcodebuild clean build -sdk iphonesimulator -project MSCircularSliderExample/MSCircularSliderExample.xcodeproj -scheme MSCircularSliderExample CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
