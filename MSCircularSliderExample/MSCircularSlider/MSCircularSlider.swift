@@ -504,7 +504,7 @@ public class MSCircularSlider: UIControl {
     /** Draws the slider's labels (if any exist) in the given context */
     private func drawLabels(ctx: CGContext) {
         if labels.count > 0 {
-            let attributes = [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelColor] as [NSAttributedString.Key : Any]
+            let attributes = [NSAttributedString.Key.font: labelFont, NSAttributedString.Key.foregroundColor: labelColor] as [NSAttributedString.Key : Any]
             
             for i in 0 ..< labels.count {
                 let label = labels[i] as NSString
