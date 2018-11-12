@@ -53,7 +53,7 @@ class GradientColorsVC: UIViewController, MSCircularSliderDelegate, ColorPickerD
         valueLbl.text = String(format: "%.1f", value)
     }
     
-    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState) {
+    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
         switch currentColorPickTag {
         case 0:
             firstColorBtn.setTitleColor(color, for: .normal)

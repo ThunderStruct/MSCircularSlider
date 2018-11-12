@@ -96,7 +96,7 @@ class DoubleHandleVC: UIViewController, MSDoubleHandleCircularSliderDelegate, Co
         valuesLbl.text = String(format: "%.1f, %.1f", firstValue, secondValue)
     }
     
-    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState) {
+    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
         switch currentColorPickTag {
         case 0:
             firstHandleColorBtn.setTitleColor(color, for: .normal)

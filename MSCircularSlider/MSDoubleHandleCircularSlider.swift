@@ -51,7 +51,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
             
             castDelegate?.circularSlider(self, valueChangedTo: currentValue, secondValue: val, isFirstHandle: nil, fromUser: false)
             
-            sendActions(for: UIControlEvents.valueChanged)
+            sendActions(for: UIControl.Event.valueChanged)
             setNeedsDisplay()
         }
         get {
@@ -270,7 +270,7 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         
         castDelegate?.circularSlider(self, valueChangedTo: currentValue, secondValue: secondCurrentValue, isFirstHandle: handle.isPressed, fromUser: false)
         
-        sendActions(for: UIControlEvents.valueChanged)
+        sendActions(for: UIControl.Event.valueChanged)
         
         return true
     }

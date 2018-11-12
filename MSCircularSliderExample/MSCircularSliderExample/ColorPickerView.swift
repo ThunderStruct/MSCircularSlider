@@ -16,7 +16,7 @@
 import UIKit
 
 internal protocol ColorPickerDelegate : NSObjectProtocol {
-    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizerState)
+    func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State)
 }
 
 @IBDesignable
@@ -102,7 +102,7 @@ class ColorPickerView: UIView {
     }
     
     @objc func touchedColor(_ gestureRecognizer: UILongPressGestureRecognizer){
-        if (gestureRecognizer.state == UIGestureRecognizerState.began) {
+        if (gestureRecognizer.state == UIGestureRecognizer.State.began) {
             let point = gestureRecognizer.location(in: self)
             let color = getColorAtPoint(point: point)
             
