@@ -166,26 +166,6 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
         }
     }
     
-    @available(*, unavailable, message: "this feature is not implemented yet")
-    override public var snapToLabels: Bool {
-        set {
-            
-        }
-        get {
-            return false
-        }
-    }
-    
-    @available(*, unavailable, message: "this feature is not implemented yet")
-    override public var snapToMarkers: Bool {
-        set {
-            
-        }
-        get {
-            return false
-        }
-    }
-    
     //================================================================================
     // VIRTUAL METHODS
     //================================================================================
@@ -278,12 +258,18 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     override public func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         castDelegate?.circularSlider(self, endedTrackingWith: currentValue, secondValue: secondCurrentValue, isFirstHandle: handle.isPressed)
         
+        if handle.isPressed {
+            snapHandle()
+        }
+        if secondHandle.isPressed {
+            snapSecondHandle()
+        }
+        
         handle.isPressed = false
         secondHandle.isPressed = false
         
         setNeedsDisplay()
         
-        // Snap To Labels/Markings future feature
     }
     
     //================================================================================
@@ -300,43 +286,168 @@ public class MSDoubleHandleCircularSlider: MSCircularSlider {
     }
     
     /** Moves the first handle to a given angle */
-    private func moveFirstHandleTo(_ newAngle: CGFloat) {
+    @discardableResult
+    private func moveFirstHandleTo(_ newAngle: CGFloat) -> Bool {
         let center = pointOnCircleAt(angle: newAngle)
         let radius = handle.diameter / 2.0
         let newHandleFrame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
         
         if !fullCircle && newAngle > secondAngle {
             // will cross over the open part of the arc
-            return
+            return false
         }
         
         if distanceBetweenHandles(newHandleFrame, secondHandle.frame) < minimumHandlesDistance + secondHandle.diameter {
             // will cross the minimumHandlesDistance - no changes
-            return
+            return false
         }
         
         angle = newAngle
         setNeedsDisplay()
+        
+        return true
     }
     
     /** Moves the second handle to a given angle */
-    private func moveSecondHandleTo(_ newAngle: CGFloat) {
+    @discardableResult
+    private func moveSecondHandleTo(_ newAngle: CGFloat) -> Bool {
         let center = pointOnCircleAt(angle: newAngle)
         let radius = secondHandle.diameter / 2.0
         let newHandleFrame = CGRect(x: center.x - radius, y: center.y - radius, width: 2 * radius, height: 2 * radius)
         
         if !fullCircle && (newAngle > maximumAngle || newAngle < angle) {
             // will cross over the open part of the arc
-            return
+            return false
         }
         
         if distanceBetweenHandles(newHandleFrame, handle.frame) < minimumHandlesDistance + secondHandle.diameter {
             // will cross the minimumHandlesDistance - no changes
-            return
+            return false
         }
         secondAngle = newAngle
         setNeedsDisplay()
         
+        return true
+    }
+    
+    /** Snaps the handle to the nearest label/marker depending on the settings */
+    override func snapHandle() {
+        // First handle snapping calculation
+        var fixedAngle = 0.0 as CGFloat
+        
+        if angle < 0 {
+            fixedAngle = -angle
+        }
+        else {
+            fixedAngle = maximumAngle - angle
+        }
+        
+        var minDistances: [CGFloat:CGFloat] = [:]
+        var newAngle = angle
+        
+        if snapToLabels {
+            for i in 0 ..< labels.count + 1 {
+                let percentageAlongCircle = Double(i) / Double(labels.count - (fullCircle ? 0 : 1))
+                let degreesToLbl = CGFloat(percentageAlongCircle) * maximumAngle
+                minDistances[abs(fixedAngle - degreesToLbl)] = degreesToLbl != 0 || !fullCircle ? maximumAngle - degreesToLbl : 0
+            }
+            
+            let sortedKeys = minDistances.keys.sorted()
+            
+            for dst in sortedKeys {
+                if let ang = minDistances[dst] {
+                    if (moveFirstHandleTo(ang)) {
+                        newAngle = ang
+                        break
+                    }
+                }
+            }
+            
+            currentValue = valueFrom(angle: newAngle)
+        }
+        
+        if snapToMarkers {
+            for i in 0 ..< markerCount + 1 {
+                let percentageAlongCircle = Double(i) / Double(markerCount - (fullCircle ? 0 : 1))
+                let degreesToMarker = CGFloat(percentageAlongCircle) * maximumAngle
+                minDistances[abs(fixedAngle - degreesToMarker)] = degreesToMarker != 0 || !fullCircle ? maximumAngle - degreesToMarker : 0
+            }
+            
+            let sortedKeys = minDistances.keys.sorted()
+            
+            for dst in sortedKeys {
+                if let ang = minDistances[dst] {
+                    if (moveFirstHandleTo(ang)) {
+                        newAngle = ang
+                        break
+                    }
+                }
+            }
+            
+            currentValue = valueFrom(angle: newAngle)
+        }
+        
+        setNeedsDisplay()
+    }
+    
+    private func snapSecondHandle() {
+        // Second handle snapping calculation
+        var fixedAngle = 0.0 as CGFloat
+        
+        if secondAngle < 0 {
+            fixedAngle = -secondAngle
+        }
+        else {
+            fixedAngle = maximumAngle - secondAngle
+        }
+        
+        
+        var minDistances: [CGFloat:CGFloat] = [:]
+        var newAngle = secondAngle
+        
+        if snapToLabels {
+            for i in 0 ..< labels.count + 1 {
+                let percentageAlongCircle = Double(i) / Double(labels.count - (fullCircle ? 0 : 1))
+                let degreesToLbl = CGFloat(percentageAlongCircle) * maximumAngle
+                minDistances[abs(fixedAngle - degreesToLbl)] = degreesToLbl != 0 || !fullCircle ? maximumAngle - degreesToLbl : 0
+            }
+            
+            let sortedKeys = minDistances.keys.sorted()
+            
+            for dst in sortedKeys {
+                if let ang = minDistances[dst] {
+                    if (moveSecondHandleTo(ang)) {
+                        newAngle = ang
+                        break
+                    }
+                }
+            }
+            
+            secondCurrentValue = valueFrom(angle: newAngle)
+        }
+        
+        if snapToMarkers {
+            for i in 0 ..< markerCount + 1 {
+                let percentageAlongCircle = Double(i) / Double(markerCount - (fullCircle ? 0 : 1))
+                let degreesToMarker = CGFloat(percentageAlongCircle) * maximumAngle
+                minDistances[abs(fixedAngle - degreesToMarker)] = degreesToMarker != 0 || !fullCircle ? maximumAngle - degreesToMarker : 0
+            }
+            
+            let sortedKeys = minDistances.keys.sorted()
+            
+            for dst in sortedKeys {
+                if let ang = minDistances[dst] {
+                    if (moveSecondHandleTo(ang)) {
+                        newAngle = ang
+                        break
+                    }
+                }
+            }
+            
+            secondCurrentValue = valueFrom(angle: newAngle)
+        }
+        
+        setNeedsDisplay()
     }
     
 }

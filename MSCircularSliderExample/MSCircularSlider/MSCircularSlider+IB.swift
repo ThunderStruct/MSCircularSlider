@@ -54,6 +54,29 @@ extension MSCircularSlider {
         }
     }
     
+    @IBInspectable public var _sliderPadding: CGFloat {
+        get {
+            return sliderPadding
+        }
+        set {
+            sliderPadding = newValue
+        }
+    }
+    
+    @IBInspectable public var _maximumRevolutions: Int {
+        get {
+            return maximumRevolutions
+        }
+        set {
+            if newValue < 0 {
+                maximumRevolutions = -1
+            }
+            else {
+                maximumRevolutions = newValue
+            }
+        }
+    }
+    
     @IBInspectable public var _lineWidth: Int {
         get {
             return lineWidth

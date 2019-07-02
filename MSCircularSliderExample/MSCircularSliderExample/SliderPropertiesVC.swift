@@ -23,6 +23,8 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
     var colorPicker: ColorPickerView?
     var animationTimer: Timer?
     var animationReversed = false
+    var currentRevolutions = 0
+    var currentValue = 0.0
     
     // Actions
     @IBAction func handleTypeValueChanged(_ sender: UIStepper) {
@@ -67,7 +69,8 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         
         slider.delegate = self
         
-        valueLbl.text = String(format: "%.1f", slider.currentValue)
+        currentValue = slider.currentValue
+        valueLbl.text = String(format: "%.1f", currentValue)
         
         descriptionLbl.text = getDescription()
         
@@ -98,14 +101,24 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
         }
     }
     
-    func getDescription() -> String {
+    func directionToString(_ direction: MSCircularSliderDirection) -> String {
+        return direction == .none ? "None" : (direction == .clockwise ? "Clockwise" : "Counter-Clockwise")
+    }
+    
+    func getDescription(_ sliderDirection: MSCircularSliderDirection = .none) -> String {
         let rotationAngle = slider.rotationAngle == nil ? "Computed" : String(format: "%.1f", slider.rotationAngle!) + "°"
-        return "Maximum Angle: \(String(format: "%.1f", slider.maximumAngle))°\nLine Width: \(slider.lineWidth)\nRotation Angle: \(rotationAngle)"
+        return "Maximum Angle: \(String(format: "%.1f", slider.maximumAngle))°\nLine Width: \(slider.lineWidth)\nRotation Angle: \(rotationAngle)\nSliding Direction: " + directionToString(sliderDirection)
     }
     
     // Delegate Methods
     func circularSlider(_ slider: MSCircularSlider, valueChangedTo value: Double, fromUser: Bool) {
-        valueLbl.text = String(format: "%.1f", value)
+        currentValue = value
+        if !slider.endlesslyLoops || !slider.fullCircle {
+            valueLbl.text = String(format: "%.1f\nx%d", currentValue, currentRevolutions + 1)
+        }
+        else {
+            valueLbl.text = String(format: "%.1f", currentValue)
+        }
     }
     
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double) {
@@ -114,6 +127,15 @@ class SliderProperties: UIViewController, MSCircularSliderDelegate, ColorPickerD
     
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double) {
         // optional delegate method
+    }
+    
+    func circularSlider(_ slider: MSCircularSlider, directionChangedTo value: MSCircularSliderDirection) {
+        descriptionLbl.text = getDescription(value)
+    }
+    
+    func circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int) {
+        currentRevolutions = value
+        valueLbl.text = String(format: "%.1f\nx%d", currentValue, currentRevolutions + 1)
     }
     
     func colorPickerTouched(sender: ColorPickerView, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {

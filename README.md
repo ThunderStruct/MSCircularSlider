@@ -1,5 +1,5 @@
 # MSCircularSlider
-[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.2.2-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/ThunderStruct/MSCircularSlider.svg?branch=master)](https://travis-ci.org/ThunderStruct/MSCircularSlider) [![Platform](https://img.shields.io/badge/platform-iOS-lightgrey.svg)](https://github.com/ThunderStruct/MSCircularSlider) [![CocoaPods](https://img.shields.io/badge/pod-1.3.0-blue.svg)](https://cocoapods.org/pods/MSCircularSlider) [![License](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ThunderStruct/MSCircularSlider/blob/master/LICENSE)
 
 A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 
@@ -9,7 +9,7 @@ A fully `IBDesignable` and `IBInspectable` circular slider for iOS applications
 </p>
 
 ## Getting Started
-MSCircularSlider provides a fluid and straightforward interface to a multipurpose slider UIControl. The entire library is written in Swift 4 along with the accompanying example project
+MSCircularSlider provides a fluid and straightforward interface to a multipurpose slider UIControl. The entire library is written in Swift 5 along with the accompanying example project
 
 ### Installation
 #### CocoaPods (recommended)
@@ -75,6 +75,7 @@ view.addSubview(slider!)
   - `maximumValue`: the value the slider takes at maximumAngle - default 100.0
   - `currentValue`: the value the slider has at the current angle - default 0.0
   - `maximumAngle`: the arc's maximum angle (360° = full circle) - default 360.0
+  - `sliderPadding`: the padding between the frame and the drawn slider (can be used to prevent labels' clipping by enlarging the frame and increasing the padding) - default 0.0
   - `lineWidth`: the arc's line width - default 5
   - `filledColor`: the color shown for the part "filled" by the handle - default .darkGrey
   - `unfilledColor`: the color shown for the "unfilled" part of the circle - default .lightGrey
@@ -101,6 +102,10 @@ view.addSubview(slider!)
     - note: markerPath takes precedence over markerImage, so if both members are set, the images will not be drawn
   - `snapToMarkers`: indicates whether the handle should _snap_ to the nearest marker upon handle-release - default false
     - ~note: if both snapToMarkers and snapToLabels are true, the handle will be snapped to the nearest marker~ _removed mutual-exclusion in 1.1.0_
+  - `slidingDirection`: indicates the current handle sliding direction - default .none
+  - `revolutionsCount`: indicates the number of times the handle has revolved (requires `maximumAngle` = 360) - default 0
+  - `maximumRevolutions`: specifies the maximum number of revolutions before the slider is bounded at 100% (`angle` = 360.0) - default -1
+    - note: this property is valid only when `maximumAngle = 360.0`, it also prevents -ve revolutions by bounding the counter-clockwise sliding at 0% (`angle` = 0.0) and `revolutionsCount` = 0. Setting this property to any -ve value will allow the slider to revolve endlessly
   - `addLabel(_ string: String)`: adds a string to the labels array and triggers required drawing methods
   - `changeLabel(at index: Int, string: String)`: replaces the label's string at the given index with the provided string
   - `removeLabel(at index: Int)`: removes the string from the labels array at the given index
@@ -116,11 +121,11 @@ Inherits from MSCircularSlider with the following differences
   - `secondHandleColor`: the second handle's color - default .darkGrey
   - `secondHandleImage`: the second handle's image - default nil
   - `secondHandleEnlargementPoints`: the number of points the second handle is larger than lineWidth - default 10
-  - note: this property only applies to handles of types .largeCircle or .doubleCircle
+    - note: this property only applies to handles of types .largeCircle or .doubleCircle
   - `secondHandleHighlightable`: indicates whether the second handle should _highlight_ (becomes semitransparent) while being pressed - default true
   - `secondHandleRotatable`: specifies whether or not the second handle should rotate to always point outwards - default false
-  - `snapToLabels`: from the super class - overridden and made unavailable
-  - `snapToMarkers`: from the super class - overriden and made unavailable
+  - `snapToLabels`: indicates whether both handles should _snap_ to the nearest marker upon handle-release - default false - ~overridden and made unavailable~ _available in 1.3.0_
+  - `snapToMarkers`: findicates whether both handles should _snap_ to the nearest label upon handle-release - default false - ~overriden and made unavailable~ _available in 1.3.0_
 
 #### MSGradientCircularSlider
 Inherits from MSCircularSlider with the following differences
@@ -131,7 +136,7 @@ Inherits from MSCircularSlider with the following differences
   - `changeColor(at index: Int, newColor: UIColor)`: replaces the color at the given index with the provided newColor
   - `removeColor(at index: Int)`: removes the color from the gradientColors array at the given index
 
-### Protocols  
+### Protocols  and Enums
 There are three protocols used in the MSCircularSlider library
 
 #### MSCircularSliderProtocol
@@ -145,6 +150,8 @@ Inherits from MSCircularSliderProtocol and contains all methods (documented belo
   - `circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double)`: indicates that the handle started scrolling
   
   - `circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double)`: indicates that the slider's handle was released
+  - `circularSlider(_ slider: MSCircularSlider, directionChangedTo value: MSCircularSliderDirection)`: indicates which direction the user is currently sliding
+  - `circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int)`: indicates how many times the handle has revolved around the entire slider (only valid for `maximumAngle` = 360.0 / full circle)
 
 #### MSDoubleHandleCircularSliderDelegate
 Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircularSlider
@@ -155,10 +162,17 @@ Inherits from MSCircularSliderProtocol and is used only by MSDoubleHandleCircula
   
   - `circularSlider(_ slider: MSCircularSlider, endedTrackingWith firstValue: Double, secondValue: Double, isFirstHandle: Bool)`: indicates that the active slider's handle was released
 
+#### MSCircularSliderDirection
+Used to indicate which direction the user is currently sliding
+
+  - `.none`
+  - `.clockwise`
+  - `.counterclockwise`
+
 ## Todos
 
  - [x] Eliminate mutual-exlusion between `snapToLabels` and `snapToMarkers`
- - [ ] Add snapping feature for `MSDoubleHandleCircularSlider`
+ - [x] Add snapping feature for `MSDoubleHandleCircularSlider`
  - [x] Add independent members for the second handle in `MSDoubleHandleCircularSlider` to customize each handle individually
  - [ ] Add `MSCircularSliderMaterial` enum that specifies different _finishes_ for the slider, including
    - Glossy

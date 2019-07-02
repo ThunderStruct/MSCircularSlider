@@ -16,12 +16,20 @@ public protocol MSCircularSliderDelegate: MSCircularSliderProtocol {
     func circularSlider(_ slider: MSCircularSlider, valueChangedTo value: Double, fromUser: Bool)   // fromUser indicates whether the value changed by sliding the handle (fromUser == true) or through other means (fromUser == false)
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double)
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double)
+    func circularSlider(_ slider: MSCircularSlider, directionChangedTo value: MSCircularSliderDirection)
+    func circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int)
 }
 
 extension MSCircularSliderDelegate {
     // Optional Methods
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double) {}
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double) {}
+    func circularSlider(_ slider: MSCircularSlider, directionChangedTo value: MSCircularSliderDirection) {}
+    func circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int) {}
+}
+
+public enum MSCircularSliderDirection {
+    case clockwise, counterclockwise, none
 }
 
 
@@ -114,6 +122,30 @@ public class MSCircularSlider: UIControl {
             setNeedsDisplay()
         }
     }
+    
+    /** Uniform padding */
+    public var sliderPadding: CGFloat = 0.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    // REVOLUTIONS AND DIRECTION MEMBERS
+    
+    /** Specifies the current handle sliding direction - *default: .none* */
+    public var slidingDirection: MSCircularSliderDirection = .none
+    
+    /** Indicates whether the user is sliding the handle or not - *default: false* */
+    internal var isSliding: Bool = false
+    
+    /** Counts how many revolutions have been made (works only when `maximumAngle` = 360.0 and `boundedMaxAngle` = false) - *default: 0* */
+    private var revolutionsCount: Int = 0
+    
+    /** Sets the maximum number of revolutions before the slider gets bounded at angle 360.0 (setting a -ve value will let the slider endlessly revolve; valid only for fully circular sliders) - *default: -1* */
+    public var maximumRevolutions: Int = -1
+    
+    /** A constant threshold used to detect how many revolutions have passed - *default: 180.0* */
+    internal let REVOLUTIONS_DETECTION_THRESHOLD: CGFloat = 180.0
     
     // LINE MEMBERS
     
@@ -327,12 +359,11 @@ public class MSCircularSlider: UIControl {
     
     /** The slider's calculated radius based on the components' sizes */
     public var calculatedRadius: CGFloat {
-        if (radius == -1.0) {
-            let minimumSize = min(bounds.size.height, bounds.size.width)
-            let halfLineWidth = ceilf(Float(lineWidth) / 2.0)
-            let halfHandleWidth = ceilf(Float(handleDiameter) / 2.0)
-            return minimumSize * 0.5 - CGFloat(max(halfHandleWidth, halfLineWidth))
-        }
+        let minimumSize = min(bounds.size.height - sliderPadding, bounds.size.width - sliderPadding)
+        let halfLineWidth = ceilf(Float(lineWidth) / 2.0)
+        let halfHandleWidth = ceilf(Float(handleDiameter) / 2.0)
+        radius = minimumSize * 0.5 - CGFloat(max(halfHandleWidth, halfLineWidth))
+        
         return radius
     }
     
@@ -346,6 +377,12 @@ public class MSCircularSlider: UIControl {
         return maximumAngle == 360.0
     }
     
+    /** A read-only property that indicates whether the slider endlessly loops or is bounded by a number of revolutions */
+    public var endlesslyLoops: Bool {
+        return maximumRevolutions == -1
+    }
+    
+    
     //================================================================================
     // SETTER METHODS
     //================================================================================
@@ -356,6 +393,7 @@ public class MSCircularSlider: UIControl {
         
         setNeedsUpdateConstraints()
         setNeedsDisplay()
+        setNeedsLayout()
     }
     
     /** Replaces the label at a certain index with the given string */
@@ -365,6 +403,7 @@ public class MSCircularSlider: UIControl {
         
         setNeedsUpdateConstraints()
         setNeedsDisplay()
+        setNeedsLayout()
     }
     
     /** Removes a label at a given index */
@@ -374,6 +413,7 @@ public class MSCircularSlider: UIControl {
         
         setNeedsUpdateConstraints()
         setNeedsDisplay()
+        setNeedsLayout()
     }
     
     //================================================================================
@@ -391,7 +431,6 @@ public class MSCircularSlider: UIControl {
         super.init(frame: frame)
         backgroundColor = .clear
         initHandle()
-        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -401,12 +440,8 @@ public class MSCircularSlider: UIControl {
     }
     
     override public var intrinsicContentSize: CGSize {
-        let diameter = radius * 2
-        let handleRadius = ceilf(Float(handleDiameter) / 2.0)
-        
-        let totalWidth = diameter + CGFloat(2 *  max(handleRadius, ceilf(Float(lineWidth) / 2.0)))
-        
-        return CGSize(width: totalWidth, height: totalWidth)
+        let diameter = calculatedRadius * 2
+        return CGSize(width: diameter, height: diameter)
     }
     
     override public func draw(_ rect: CGRect) {
@@ -431,7 +466,6 @@ public class MSCircularSlider: UIControl {
         for view in subviews {      // cancel rotation on all subviews added by the user
             view.transform = rotationalTransform.inverted()
         }
-        
     }
     
     override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -440,7 +474,6 @@ public class MSCircularSlider: UIControl {
         }
         
         if handle.contains(point) {
-            
             return true
         }
         else {
@@ -462,10 +495,65 @@ public class MSCircularSlider: UIControl {
     }
     
     override public func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        let lastPoint = touch.location(in: self)
-        let lastAngle = floor(calculateAngle(from: centerPoint, to: lastPoint))
+        let newPoint = touch.location(in: self)
+        var newAngle = floor(calculateAngle(from: centerPoint, to: newPoint))
         
-        moveHandle(newAngle: lastAngle)
+        // Sliding direction and revolutions' count detection
+        func changeSlidingDirection(_ direction: MSCircularSliderDirection) {
+            // Change direction (without multiplicity)
+            if self.slidingDirection != direction {
+                self.slidingDirection = direction
+                self.castDelegate?.circularSlider(self, directionChangedTo: slidingDirection)
+            }
+        }
+        
+        if newAngle > angle {
+            // Check if crossing the critical point (north/angle=0.0)
+            if fullCircle && isSliding && maximumRevolutions != -1 && (newAngle - angle > REVOLUTIONS_DETECTION_THRESHOLD) {
+                // Check if should be bound (maximumRevolutions reached or less than 0)
+                if revolutionsCount - 1 < 0 {
+                    newAngle = 0.0
+                }
+                else {
+                    revolutionsCount -= 1
+                    castDelegate?.circularSlider(self, revolutionsChangedTo: revolutionsCount)
+                    changeSlidingDirection(.counterclockwise)
+                }
+            }
+            else if fullCircle && isSliding && (newAngle - angle > REVOLUTIONS_DETECTION_THRESHOLD) {
+                changeSlidingDirection(.counterclockwise)
+            }
+            else {
+                changeSlidingDirection(.clockwise)
+            }
+            
+        }
+        else if newAngle < angle {
+            // Check if crossing the critical point (north/angle=0.0)
+            if fullCircle && isSliding && maximumRevolutions != -1 && (angle - newAngle > REVOLUTIONS_DETECTION_THRESHOLD) {
+                // Check if should be bound (maximumRevolutions reached or less than 0)
+                if revolutionsCount + 1 > maximumRevolutions {
+                    newAngle = 360.0
+                }
+                else {
+                    revolutionsCount += 1
+                    castDelegate?.circularSlider(self, revolutionsChangedTo: revolutionsCount)
+                    changeSlidingDirection(.clockwise)
+                }
+            }
+            else if fullCircle && isSliding && (angle - newAngle > REVOLUTIONS_DETECTION_THRESHOLD) {
+                changeSlidingDirection(.clockwise)
+            }
+            else {
+                changeSlidingDirection(.counterclockwise)
+            }
+        }
+        
+        if !isSliding {
+            isSliding = true
+        }
+        
+        moveHandle(newAngle: newAngle)
         
         castDelegate?.circularSlider(self, valueChangedTo: currentValue, fromUser: true)
         
@@ -481,6 +569,12 @@ public class MSCircularSlider: UIControl {
         snapHandle()
         
         handle.isPressed = false
+        isSliding = false
+        
+        if slidingDirection != .none {
+            slidingDirection = .none
+            castDelegate?.circularSlider(self, directionChangedTo: slidingDirection)
+        }
         
         setNeedsDisplay()
     }
@@ -743,7 +837,7 @@ public class MSCircularSlider: UIControl {
     }
     
     /** Snaps the handle to the nearest label/marker depending on the settings */
-    private func snapHandle() {
+    internal func snapHandle() {
         // Snapping calculation
         var fixedAngle = 0.0 as CGFloat
         
@@ -766,7 +860,6 @@ public class MSCircularSlider: UIControl {
                     newAngle = degreesToLbl != 0 || !fullCircle ? maximumAngle - degreesToLbl : 0
                     minDist = abs(fixedAngle - degreesToLbl)
                 }
-                
             }
             
             currentValue = valueFrom(angle: newAngle)
@@ -787,7 +880,6 @@ public class MSCircularSlider: UIControl {
         }
         
         setNeedsDisplay()
-
     }
     
     //================================================================================

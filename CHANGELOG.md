@@ -3,6 +3,28 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ------------------------
 
+## 1.3.0 - 02-07-2019
+#### Added
+  - An option to bound the handle at 100% (after a given number of revolutions) and 0%, preventing endless looping
+  - `MSDoubleHandleCircularSlider` can now snap to labels and markers
+  - A new optional protocol method to specify the sliding direction (`clockwise`, `counterclockwise`, or `none`)
+  - `sliderPadding` property to overcome components getting clipped (thanks to Noiibe!)
+  - A new optional protocol method that detects how many revolutions have passed (valid only when the slider is a full circle (`maximumAngle` = 360.0))
+
+
+#### Changed
+  - Minor changes to the example project to illustrate the new sliding direction and revolutions' counter methods
+
+#### Fixed
+  - Swift 5.0 support
+  - Handle-image rotation bug (thanks to Noiibe!)
+  - `radius` member's value not getting updated
+
+
+## 1.2.3 - 11-11-2018
+#### Merged
+  - Swift 4.2 support (PR by ivanbarisic05)
+
 ## 1.2.2 - 19-06-2018
 #### Added
   - An option to rotate the handle image to always point outwards
