@@ -491,7 +491,7 @@ public class MSCircularSlider: UIControl {
             return true
         }
         
-        return pointInsideCircle(location)
+        return false    //pointInsideCircle(location)
     }
     
     override public func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
