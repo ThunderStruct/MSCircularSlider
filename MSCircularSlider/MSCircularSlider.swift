@@ -20,7 +20,7 @@ public protocol MSCircularSliderDelegate: MSCircularSliderProtocol {
     func circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int)
 }
 
-extension MSCircularSliderDelegate {
+public extension MSCircularSliderDelegate {
     // Optional Methods
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double) {}
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double) {}
