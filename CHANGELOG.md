@@ -3,6 +3,14 @@ The changelog for `MSCircularSlider`. Summarized release notes can be found in t
 
 ------------------------
 
+## 1.3.1 - 05-04-2020
+#### Fixed
+  - The slider moving even when the initial touch is not on the slider (thanks to @endy-s and @MoonshineSG)
+  - Triggering the `endedTrackingWith` delegate method before handle-snapping
+
+#### Changed
+  - Some delegate methods fixed to actually be optional
+
 ## 1.3.0 - 02-07-2019
 #### Added
   - An option to bound the handle at 100% (after a given number of revolutions) and 0%, preventing endless looping
