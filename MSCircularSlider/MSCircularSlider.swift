@@ -20,7 +20,7 @@ public protocol MSCircularSliderDelegate: MSCircularSliderProtocol {
     func circularSlider(_ slider: MSCircularSlider, revolutionsChangedTo value: Int)
 }
 
-extension MSCircularSliderDelegate {
+public extension MSCircularSliderDelegate {
     // Optional Methods
     func circularSlider(_ slider: MSCircularSlider, startedTrackingWith value: Double) {}
     func circularSlider(_ slider: MSCircularSlider, endedTrackingWith value: Double) {}
@@ -491,7 +491,7 @@ public class MSCircularSlider: UIControl {
             return true
         }
         
-        return pointInsideCircle(location)
+        return false    //pointInsideCircle(location)
     }
     
     override public func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
