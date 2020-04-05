@@ -565,8 +565,8 @@ public class MSCircularSlider: UIControl {
     override public func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         super.endTracking(touch, with: event)
         
-        castDelegate?.circularSlider(self, endedTrackingWith: currentValue)
         snapHandle()
+        castDelegate?.circularSlider(self, endedTrackingWith: currentValue)
         
         handle.isPressed = false
         isSliding = false
