@@ -139,7 +139,7 @@ public class MSCircularSlider: UIControl {
     internal var isSliding: Bool = false
     
     /** Counts how many revolutions have been made (works only when `maximumAngle` = 360.0 and `boundedMaxAngle` = false) - *default: 0* */
-    private var revolutionsCount: Int = 0
+    public var revolutionsCount: Int = 0
     
     /** Sets the maximum number of revolutions before the slider gets bounded at angle 360.0 (setting a -ve value will let the slider endlessly revolve; valid only for fully circular sliders) - *default: -1* */
     public var maximumRevolutions: Int = -1
