@@ -930,12 +930,12 @@ public class MSCircularSlider: UIControl {
     
     /** Calculates the angle from north given a value */
     internal func angleFrom(value: Double) -> CGFloat {
-        return (CGFloat(value) * maximumAngle) / CGFloat(maximumValue - minimumValue)
+        return (CGFloat(value - minimumValue) * maximumAngle) / CGFloat(maximumValue - minimumValue)
     }
     
     /** Calculates the value given an angle from north */
     internal func valueFrom(angle: CGFloat) -> Double {
-        return (maximumValue - minimumValue) * Double(angle) / Double(maximumAngle)
+        return ((maximumValue - minimumValue) * Double(angle) / Double(maximumAngle)) + minimumValue
     }
     
     /** Converts degrees to radians */
