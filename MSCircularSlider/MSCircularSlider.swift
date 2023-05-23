@@ -78,7 +78,7 @@ public class MSCircularSlider: UIControl {
             let val = min(max(minimumValue, newValue), maximumValue)
             handle.currentValue = val
             angle = angleFrom(value: val)
-            
+            animationLayer.progress = val
             castDelegate?.circularSlider(self, valueChangedTo: val, fromUser: false)
             
             sendActions(for: UIControl.Event.valueChanged)
@@ -419,6 +419,13 @@ public class MSCircularSlider: UIControl {
     //================================================================================
     // INIT AND VIRTUAL METHODS
     //================================================================================
+    override class public var layerClass: AnyClass {
+        return MSCircularSliderAnimationLayer.self
+    }
+    
+    private var animationLayer: MSCircularSliderAnimationLayer {
+        return layer as! MSCircularSliderAnimationLayer
+    }
     
     func initHandle() {
         handle.delegate = self
@@ -445,8 +452,13 @@ public class MSCircularSlider: UIControl {
     }
     
     override public func draw(_ rect: CGRect) {
+        print("Draw function called")
         super.draw(rect)
         let ctx = UIGraphicsGetCurrentContext()
+        
+        if let presentationLayer = layer.presentation() as? MSCircularSliderAnimationLayer, let _ = presentationLayer.animation(forKey: "progress") {
+                currentValue = presentationLayer.progress
+        }
         
         // Draw filled and unfilled lines
         drawLine(ctx: ctx!)
@@ -817,6 +829,36 @@ public class MSCircularSlider: UIControl {
         handle.add(anim, forKey: "currentValue")
         handle.currentValue = newVal
     }*/
+    
+    public func setValue(_ newValue: Double, withAnimation animated: Bool = false, animationDuration duration: Double = 0.75, completionBlock: (() -> Void)? = nil) {
+        if !animated {
+            currentValue = newValue
+            return
+        }
+        print(currentValue)
+        if animated && currentValue == newValue {
+            guard let completionBlock = completionBlock else { return }
+            completionBlock()
+            return
+        }
+        
+        let newVal = min(max(minimumValue, newValue), maximumValue)
+        CATransaction.begin()
+        let animation = CABasicAnimation()
+        animation.keyPath = "progress"
+        animation.duration = duration
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.fromValue = currentValue
+        animation.toValue = newVal
+        animation.isRemovedOnCompletion = true
+        CATransaction.setCompletionBlock {
+            self.currentValue = newVal
+            guard let completionBlock = completionBlock else { return }
+            completionBlock()
+        }
+        self.animationLayer.add(animation, forKey: "progress")
+        CATransaction.commit()
+    }
     
     /** Moves the handle to `newAngle` */
     private func moveHandle(newAngle: CGFloat) {
